@@ -13,7 +13,7 @@ if [[ $Ans == "AddBookmark" ]]; then
     exit
 elif [[ $Ans == "Google" ]]
 then
-    Search= $(echo "Input Google search" | dmenu | sed 's/ /+/g')
+    Search=$(echo "Input Google search" | dmenu | sed 's/ /+/g')
     if [[ $Search != "" ]]; then
         exec firefox -new-tab http://www.google.com/search?q=$Search
     fi
