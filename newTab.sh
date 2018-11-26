@@ -6,8 +6,8 @@ if [[ $Ans == "AddBookmark" ]]; then
     if [[ $Name != "" ]]; then
         URL=$(echo "Input URL of bookmark" | dmenu)
         if [[ $URL != "" ]]; then
-            echo $Name >> ~/testfile
-            echo $URL >> ~/testfile
+            echo $Name >> ~/.bookmarks
+            echo $URL >> ~/.bookmarks
         fi
     fi
     exit
