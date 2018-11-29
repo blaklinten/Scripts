@@ -1,4 +1,5 @@
 #!/bin/bash
+Type=$1
 Ans=$(sed -n '1~2!p' ~/.bookmarks | dmenu -i)
 
 if [[ $Ans == "AddBookmark" ]]; then
@@ -13,15 +14,15 @@ if [[ $Ans == "AddBookmark" ]]; then
     exit
 elif [[ $Ans == "Google" ]]
 then
-    Search= $(echo "Input Google search" | dmenu | sed 's/ /+/g')
+    Search=$(echo "Input Google search" | dmenu | sed 's/ /+/g')
     if [[ $Search != "" ]]; then
-        exec firefox -new-tab http://www.google.com/search?q=$Search
+        exec firefox -new-$Type http://www.google.com/search?q=$Search
     fi
 elif [[ $Ans != "" ]]
 then
     if [[ $(sed -n "/^$Ans$/ {n;p}" ~/.bookmarks) == ""  ]]; then
-        exec firefox -new-tab $Ans
+        exec firefox -new-$Type $Ans
     else
-        exec firefox -new-tab $(sed -n "/^$Ans$/ {n;p}" ~/.bookmarks)
+        exec firefox -new-$Type $(sed -n "/^$Ans$/ {n;p}" ~/.bookmarks)
     fi
 fi
