@@ -1,0 +1,10 @@
+#!/bin/bash
+State=$(xinput list-props "AlpsPS/2 ALPS GlidePoint" | grep 138 | tail -c 2)
+
+if [[ $State == "0" ]]
+then
+    exec xinput set-prop "AlpsPS/2 ALPS GlidePoint" 138 1
+elif [[ $State == "1" ]]
+then
+    exec xinput set-prop "AlpsPS/2 ALPS GlidePoint" 138 0
+fi
