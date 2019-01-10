@@ -1,12 +1,14 @@
 #!/bin/sh 
 
+NIGHTMODE=$(cat ~/.nightmode_status)
 night_mode() { 
 #  for disp in $(xrandr | sed -n 's/^\([^ ]*\).*\<connected>.*/\1/p'); do 
 #    xrandr --output $disp --gamma $1 --brightness $2 
     xrandr --output eDP1 --gamma $1 --brightness $2 
+    echo $3 > ~/.nightmode_status
 #  done } 
 }
-case $1 in 
-  off) night_mode 1:1:1 1.0 ;; 
-  *) night_mode 1:1:0.8 0.7 ;;
+case $NIGHTMODE in 
+  on) night_mode 1:1:1 1.0 off ;; 
+  *) night_mode 1:0.7:0.2 0.7 on ;;
 esac
