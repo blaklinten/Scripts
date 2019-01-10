@@ -1,10 +1,12 @@
 #!/bin/bash
-State=$(xinput list-props "AlpsPS/2 ALPS GlidePoint" | grep 138 | tail -c 2)
+State=$(xinput list-props "AlpsPS/2 ALPS GlidePoint" | grep 152 | tail -c 2)
 
 if [[ $State == "0" ]]
 then
-    exec xinput set-prop "AlpsPS/2 ALPS GlidePoint" 138 1
+    xinput set-prop "AlpsPS/2 ALPS GlidePoint" 152 1
+    pkill unclutter
 elif [[ $State == "1" ]]
 then
-    exec xinput set-prop "AlpsPS/2 ALPS GlidePoint" 138 0
+    xinput set-prop "AlpsPS/2 ALPS GlidePoint" 152 0
+    unclutter -idle 0.1 -root 
 fi
