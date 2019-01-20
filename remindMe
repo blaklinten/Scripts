@@ -1,0 +1,15 @@
+#!/bin/bash
+
+DATE=$(date -d $1 | head -c 16)
+echo "-------------------"
+echo "Will remind you on:"
+echo $DATE
+echo "-------------------"
+while true; do
+    if [[ $(date | head -c 16) == $DATE ]]; then
+        xmessage $2 -center 
+        # Add some noise
+        break
+    fi
+    sleep 30s
+done
