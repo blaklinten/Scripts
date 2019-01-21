@@ -2,14 +2,9 @@
 
 GIT=/home/blaklinten/Git/Backups/Misc/Scripts
 
-for FILE in $(ls); do
-    cp $FILE $GIT/$FILE
-    pushd $GIT
-    git add $FILE
-    git commit -m "Automated backup of $FILE"
-    popd
-done
 pushd $GIT
+git add $1
+git commit -m "Atomated update/add of $1"
 git push
 popd
 
