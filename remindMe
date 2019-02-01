@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Set a remider for a specified time.
+
 DATE=$(date -d $1 | head -c 16)
 echo "-------------------"
 echo "Will remind you on:"
