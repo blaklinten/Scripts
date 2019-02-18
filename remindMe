@@ -17,8 +17,9 @@ echo "-------------------"
 # Check regulary if now is the time
 while true; do
     if [[ $(date | head -c 16) == $DATE ]]; then
-        xmessage $WHAT -center 
-        # Add some noise
+        mpv ~/Music/Mixed\ Artists/SONG40.m4a &
+        xmessage $WHAT -center
+        pkill mpv
         break
     fi
     sleep 30s
