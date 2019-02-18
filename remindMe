@@ -12,7 +12,7 @@ DATE=$(date -d $DATE | head -c 16)
 echo "-------------------"
 echo "Will remind you on:"
 echo $DATE
-echo "about $WHAT."
+echo "about $WHAT"
 echo "-------------------"
 
 # Check regulary if now is the time
