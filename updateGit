@@ -8,6 +8,8 @@ git commit -m "Atomated update/add of $1"
 git push
 popd
 
-echo "-------------------------"
-echo "- You're all backed up! -"
-echo "-------------------------"
+echo "------------------------------------------"
+echo "-                                        -"
+echo "$1 is all backed up!"
+echo "-                                        -"
+echo "------------------------------------------"
