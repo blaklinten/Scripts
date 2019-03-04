@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# This script chooses a random background from ~/Bilder/Backgrounds
+
+IFS=$'\n'
+
+# Calculate number of files
+
+for PIC in $(find ~/Bilder/Backgrounds -type f); do
+    let "NUM = $NUM + 1";
+done
+
+# Find new background "index"
+let "NEW = $RANDOM % $NUM + 1"
+
+# Set new background
+CURRENT=0
+for PIC in $(find ~/Bilder/Backgrounds -type f); do
+    let "CURRENT = $CURRENT + 1"
+    if [[ $CURRENT == $NEW ]]; then
+        feh --bg-fill $PIC
+    fi
+done
