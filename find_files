@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Search for files by name in current directory
+
+echo "What file are you looking for?"
+read FILE
+echo "Searching for $FILE in $PWD/*..."
+
+for file in $(find . -type f); do
+    if [[ $(echo $file | grep -i $FILE) ]]; then
+        echo $file
+    fi
+done
+echo "Done."
