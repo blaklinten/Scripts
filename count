@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Counting 
+
+GOALS=0
+ASS=0
+TOTAL=0
+while true; do
+
+    echo "My goals:"
+    read goals
+    if [[ $goals == "q" ]]; then
+        break
+    fi
+    let "GOALS = $GOALS + $goals"
+
+    echo "My assists:"
+    read ass
+    let "ASS = $ASS + $ass"
+
+    echo "Total game goals:"
+    read total
+    let "TOTAL = $TOTAL + $total"
+done
+echo "My goals: $GOALS"
+echo "My assists: $ASS"
+echo "Total points: $TOTAL"
+echo "You have done $(expr $(expr $(expr $GOALS + $ASS) \* 100) / $TOTAL) % of points this year!"
