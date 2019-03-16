@@ -4,7 +4,7 @@ IFS=$'\n'
 
 # Go through all lines and filter out the info (groups) we want
 # and save in files for later access
-for line in $(cat /home/blaklinten/Downloads/toggl); do
+for line in $(cat /home/blaklinten/TrackMe/.raw_data/toggl); do
     echo $line | sed 's/,/\n/g' | sed -n 3p | sed 's/\ /\_/g' | sed 's/\//\&/g' >> group3
     echo $line | sed 's/,/\n/g' | sed -n 4p | sed 's/\ /\_/g' | sed 's/\//\&/g' >> group4
     echo $line | sed 's/,/\n/g' | sed -n 6p | sed 's/\ /\_/g' | sed 's/\//\&/g' >> group6
@@ -12,7 +12,7 @@ for line in $(cat /home/blaklinten/Downloads/toggl); do
     echo $line | sed 's/,/\n/g' | sed -n 9p >> group9
     echo $line | sed 's/,/\n/g' | sed -n 10p | sed 's/\-//g' >> group10
     echo $line | sed 's/,/\n/g' | sed -n 11p >> group11
-    echo $line | sed 's/,/\n/g' | sed -n 12p >> group12
+    echo $line | sed 's/,/\n/g' | sed -n 12p | sed 's/\:0/\:/g' >> group12
 done
 
 # Create a counter to keep the current line in files of interest
