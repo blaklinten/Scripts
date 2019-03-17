@@ -44,9 +44,9 @@ for client in $(cat group3); do
 
     # Format the data to fit the standard
     START_DATE_1=$(date --date=$START_DATE | head -c 11)
-    START_DATE_3=$(date --date=$START_DATE | tail -c 11)
+    START_DATE_3=$(date --date=$START_DATE | sed 's/CEST/CET/' | tail -c 10)
     END_DATE_1=$(date --date=$END_DATE | head -c 11)
-    END_DATE_3=$(date --date=$END_DATE | tail -c 11)
+    END_DATE_3=$(date --date=$END_DATE | sed 's/CEST/CET/' | tail -c 10)
     
     # Write the result to corresponding files in directory tree
     echo "Started at $START_DATE_1$START_TIME$START_DATE_3" >> $client/$project/$DESCRIPTION
@@ -61,7 +61,7 @@ done
 
 # Remove temp files
 echo Cleaning up...
-#rm -rf group*
+rm -rf group*
 echo Done.
 
 # This is how information is stored in .csv-files:
