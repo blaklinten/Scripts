@@ -1,7 +1,12 @@
 #!/bin/bash
 
+# Set Git dir
 GIT=/home/blaklinten/Git/Backups/Misc/Scripts
 
+# Copy file to update to Git dir
+cp $1 $GIT
+
+# Go to Git dir to add, commit and push changes to remote
 pushd $GIT
 git add $1
 git commit -m "Atomated update/add of $1"
