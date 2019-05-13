@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# This script locks and suspends the machine
+# This locks the device and changes background
 
-~/.scripts/./lock
-systemctl suspend
+i3lock -i $(~/.scripts/random_background png)

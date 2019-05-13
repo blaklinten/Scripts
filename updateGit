@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set Git dir
-GIT=/home/blaklinten/Git/Backups/Misc/Scripts
+GIT=/home/blaklinten/Git/Scripts
 
 # Copy file to update to Git dir
 cp $1 $GIT

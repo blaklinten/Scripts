@@ -4,7 +4,7 @@
 # in current directory
 
 echo "What do you want to search for?"
-read SEARCHSTRING
+read "SEARCHSTRING"
 echo "Searching for $SEARCHSTRING in $PWD/*..."
 
 for file in $(find . -type f); do
