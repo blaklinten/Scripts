@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# A script that shuffles all songs in a directory
+IFS=$'\n'
+
+for SONG in $(find $@ -type f); do
+        let "SONGS=$SONGS + 1";
+done
+
+while true; do
+    let "PLAYING = $RANDOM % $SONGS + 1"
+    CURRENT=0
+    for SONG in $(find $@ -type f); do
+            let "CURRENT = $CURRENT + 1"
+            if [[ $CURRENT == $PLAYING ]]; then
+                mpv $SONG
+                break
+            fi
+    done
+done
+
