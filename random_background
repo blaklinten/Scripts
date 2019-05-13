@@ -21,7 +21,7 @@ for PIC in $(find ~/Bilder/Backgrounds -type f); do
             if [[ ${PIC: -3} == "png" ]]; then
                 echo $PIC
             else
-                echo /home/blaklinten/Bilder/Backgrounds/wallpapers/Vibrant/glow.png
+                echo /home/blaklinten/Bilder/Backgrounds/wallpapers/Titans/of_the_wood.png
             fi
         else
             feh --bg-fill $PIC
