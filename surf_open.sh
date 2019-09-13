@@ -1,13 +1,13 @@
 #!/bin/sh
- Ans=$(sed -n '1~2!p' ~/.scripts/bookmarks | dmenu -i)
+ Ans=$(sed -n '1~2!p' ~/.bookmarks | dmenu -i)
 
  if [ ${Ans} = AddBookmark ]; then
      Name=$(echo "Input name of bookmark" | dmenu)
      if [ -n ${Name} ]; then
          URL=$(echo "Input URL of bookmark" | dmenu)
          if [ -n ${URL} ]; then
-             echo $Name >> ~/.scripts/bookmarks
-             echo $URL >> ~/.scripts/bookmarks
+             echo $Name >> ~/.bookmarks
+             echo $URL >> ~/.bookmarks
          fi
      fi
      exit
@@ -19,9 +19,9 @@
      fi
  elif [ -n  ${Ans} ]
  then
-     if [ -z $(sed -n "/^$Ans$/ {n;p}" ~/.scripts/bookmarks) ]; then
+     if [ -z $(sed -n "/^$Ans$/ {n;p}" ~/.bookmarks) ]; then
          exec surf $Ans
      else
-         exec surf $(sed -n "/^$Ans$/ {n;p}" ~/.scripts/bookmarks)
+         exec surf $(sed -n "/^$Ans$/ {n;p}" ~/.bookmarks)
      fi
  fi

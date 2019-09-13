@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# Pass is an implementation of the standard UNIX password manager
+
+# Current user:
+USER="Lucas Nilsson"
+
+PS3="Enter number of choice, 0 for exit: "
+present_contents()
+{
+select FILE in *; do
+ if [[ -d ${FILE} ]]; then
+   pushd ${FILE} > /dev/null
+   present_contents
+ elif [[ -f ${FILE} ]]; then
+# Decrypt the given file and push to clipboard
+   gpg -d ${FILE} 2> /dev/null | xclip
+   echo "Password copied to primary selection!"
+   exit
+ else
+   echo Bye!
+   exit
+ fi
+done
+}
+
+pushd ~/.password-store > /dev/null
+case ${1} in
+  "push")
+    git push
+  ;;
+  "pull")
+    git pull
+  ;;
+  "generate")
+    # Choose category
+
+    # Generate passwor
+    echo "Enter name of new password: "
+    read NAME
+    echo "Enter new password: "
+    read PASS
+    echo ${PASS} | gpg -e -r "${USER}" > ${NAME}.gpg
+    git add ${NAME}.gpg
+    git commit -a -m "Added generated password ${NAME}"
+  ;;
+  *)
+    present_contents
+  ;;
+esac
+
+
+
+
+#select FILE in $(find . -not -path '*/\.*' -type f); do
