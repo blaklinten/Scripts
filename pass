@@ -6,14 +6,81 @@
 USER="Lucas Nilsson"
 
 PS3="Enter number of choice, 0 for exit: "
-present_contents()
+
+# Helper functions
+
+print_usage()
+{
+  echo "Usage: pass [ OPTION ]"
+  echo "Where OPTION := { push | pull"
+  echo "                  (generate | -g) [ ARG ]"
+  echo "                  (add | -a)"
+  echo "                  (show | -s)"
+  echo "                  (help | -h)"
+  echo "      ARG := { int PASS_LENGTH }"
+  echo "Default behaviour is 'decrypt mode'"
+}
+
+ch_dir()
+{
+  echo "Categories: "
+  select DIR in *; do
+    if [[ -d ${DIR} ]]; then
+      pushd ${DIR} > /dev/null
+      break
+    else
+      exit
+    fi
+  done
+}
+
+show_all()
+{
+  for DIR in *; do
+    if [[ -d ${DIR} ]]; then
+      echo "|---- ${DIR} ----"
+      pushd ${DIR} > /dev/null
+      for PASS in *; do
+        echo "|-- ${PASS}"
+      done
+      echo "|"
+      popd > /dev/null
+    else
+      continue
+    fi
+  done
+      
+}
+
+generate()
+{
+  ch_dir
+  echo "Enter name of new password: "
+  read NAME
+  echo $(cat /dev/urandom | base64 | head -c ${1:-77})  | gpg -e -r "${USER}" > ${NAME}.gpg
+  git add ${NAME}.gpg
+  git commit -a -m "Added generated password ${NAME}"
+}
+
+add()
+{
+  ch_dir
+  echo "Enter name of new password: "
+  read NAME
+  echo "Enter new password: "
+  read PASS
+  echo ${PASS} | gpg -e -r "${USER}" > ${NAME}.gpg
+  git add ${NAME}.gpg
+  git commit -a -m "Added generated password ${NAME}"
+}
+
+decrypt()
 {
 select FILE in *; do
  if [[ -d ${FILE} ]]; then
    pushd ${FILE} > /dev/null
-   present_contents
+   decrypt
  elif [[ -f ${FILE} ]]; then
-# Decrypt the given file and push to clipboard
    gpg -d ${FILE} 2> /dev/null | xclip
    echo "Password copied to primary selection!"
    exit
@@ -33,23 +100,30 @@ case ${1} in
     git pull
   ;;
   "generate")
-    # Choose category
-
-    # Generate passwor
-    echo "Enter name of new password: "
-    read NAME
-    echo "Enter new password: "
-    read PASS
-    echo ${PASS} | gpg -e -r "${USER}" > ${NAME}.gpg
-    git add ${NAME}.gpg
-    git commit -a -m "Added generated password ${NAME}"
+    generate ${2}
+  ;;
+  "-g")
+    generate ${2}
+  ;;
+  "add")
+    add
+  ;;
+  "-a")
+    add
+  ;;
+  "show")
+    show_all
+  ;;
+  "-s")
+    show_all
+  ;;
+  "help")
+    print_usage
+  ;;
+  "-h")
+    print_usage
   ;;
   *)
-    present_contents
+    decrypt
   ;;
 esac
-
-
-
-
-#select FILE in $(find . -not -path '*/\.*' -type f); do
