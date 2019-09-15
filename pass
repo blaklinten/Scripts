@@ -99,28 +99,16 @@ case ${1} in
   "pull")
     git pull
   ;;
-  "generate")
+  "generate"|"-g")
     generate ${2}
   ;;
-  "-g")
-    generate ${2}
-  ;;
-  "add")
+  "add"|"-a")
     add
   ;;
-  "-a")
-    add
-  ;;
-  "show")
+  "show"|"-s")
     show_all
   ;;
-  "-s")
-    show_all
-  ;;
-  "help")
-    print_usage
-  ;;
-  "-h")
+  "help"|"-h")
     print_usage
   ;;
   *)
