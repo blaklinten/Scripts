@@ -5,7 +5,7 @@
 IFS=$'\n'
 
 # Calculate number of files
-for PIC in $(find ~/Bilder/Backgrounds -type f); do
+for PIC in $(find ~/Git/wallpapers -type f); do
     let "NUM = $NUM + 1";
 done
 
@@ -14,14 +14,14 @@ let "NEW = $RANDOM % $NUM + 1"
 
 # Set new background
 CURRENT=0
-for PIC in $(find ~/Bilder/Backgrounds -type f); do
+for PIC in $(find ~/Git/wallpapers -type f); do
     let "CURRENT = $CURRENT + 1"
     if [[ $CURRENT == $NEW ]]; then
         if [[ $1 == 'png' ]]; then
             if [[ ${PIC: -3} == "png" ]]; then
                 echo $PIC
             else
-                echo /home/blaklinten/Bilder/Backgrounds/wallpapers/Titans/of_the_wood.png
+                echo /home/blaklinten/Git/wallpapers/Titans/of_the_wood.png
             fi
         else
             feh --bg-fill $PIC
