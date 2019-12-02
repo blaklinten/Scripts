@@ -8,5 +8,5 @@ then
 elif [[ $State == "1" ]]
 then
     xinput set-prop "AlpsPS/2 ALPS GlidePoint" 152 0
-    unclutter -idle 0.1 -root &
+    unclutter -idle 0 -jitter 10 -root &
 fi

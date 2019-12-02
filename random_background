@@ -1,11 +1,13 @@
 #!/bin/bash
 
-# This script chooses a random background from ~/Bilder/Backgrounds
+# This script chooses a random background from $PIC_DIR
 
 IFS=$'\n'
 
+PIC_DIR=~/Pics/wallpapers
+
 # Calculate number of files
-for PIC in $(find ~/Git/wallpapers -type f); do
+for PIC in $(find ${PIC_DIR} -type f); do
     let "NUM = $NUM + 1";
 done
 
@@ -14,7 +16,7 @@ let "NEW = $RANDOM % $NUM + 1"
 
 # Set new background
 CURRENT=0
-for PIC in $(find ~/Git/wallpapers -type f); do
+for PIC in $(find ${PIC_DIR} -type f); do
     let "CURRENT = $CURRENT + 1"
     if [[ $CURRENT == $NEW ]]; then
         if [[ $1 == 'png' ]]; then
