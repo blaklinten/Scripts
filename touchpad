@@ -1,5 +1,5 @@
 #!/bin/bash
-State=$(xinput list-props "AlpsPS/2 ALPS GlidePoint" | grep 152 | tail -c 2)
+State=$(xinput list-props "AlpsPS/2 ALPS GlidePoint" | grep "Device Enabled" | tail -c 2)
 
 if [[ $State == "0" ]]
 then
