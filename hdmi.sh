@@ -1,10 +1,9 @@
 #!/bin/bash
 hdmi() {
-xrandr --output $1 --mode $2 &&
-xrandr --output $3 --off
+xrandr --output $1 --auto --output $2 --off
 }
 
 case $1 in 
-  off) hdmi eDP1 1366x768 HDMI1 ;; 
-  *) hdmi HDMI1 1024x768 eDP1 ;;
+  off) hdmi eDP1 HDMI1 ;; 
+  *) hdmi HDMI1 eDP1 ;;
 esac
