@@ -1,12 +1,12 @@
 #!/bin/bash
-State=$(xinput list-props "AlpsPS/2 ALPS GlidePoint" | grep "Device Enabled" | tail -c 2)
+State=$(xinput list-props "Synaptics TM3072-003" | grep "Device Enabled" | tail -c 2)
 
 if [[ $State == "0" ]]
 then
-    xinput set-prop "AlpsPS/2 ALPS GlidePoint" 152 1
+    xinput set-prop "Synaptics TM3072-003" 152 1
     pkill unclutter
 elif [[ $State == "1" ]]
 then
-    xinput set-prop "AlpsPS/2 ALPS GlidePoint" 152 0
+    xinput set-prop "Synaptics TM3072-003" 152 0
     unclutter -idle 0 -jitter 10 -root &
 fi
