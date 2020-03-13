@@ -1,20 +1,15 @@
 #!/bin/bash
 
 # Set Git dir
-GIT=/home/blaklinten/Git/Scripts
-
-# Copy file to update to Git dir
-cp $1 $GIT
+GIT=/home/blaklinten/Git
 
 # Go to Git dir to add, commit and push changes to remote
-pushd $GIT
-git add $1
-git commit -m "Atomated update/add of $1"
-git push
-popd
+pushd $GIT > /dev/null
+for dir in Backups Scripts; do
+    pushd $dir > /dev/null
+    git commit -a -m "Automated update"
+    git push
+    popd > /dev/null
+done
+popd > /dev/null
 
-echo "------------------------------------------"
-echo "-                                        -"
-echo "$1 is all backed up!"
-echo "-                                        -"
-echo "------------------------------------------"
