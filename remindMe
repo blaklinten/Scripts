@@ -18,7 +18,7 @@ echo "-------------------"
 # Check regulary if now is the time
 while true; do
     if [[ $(date | head -c 16) == $DATE ]]; then
-        mpv ~/Music/Mixed\ Artists/SONG40.m4a &
+        mplayer "/home/blaklinten/Musik/Dip Da Dee Da Dee Da Doh Doh.mp3"
         xmessage $WHAT -center
         pkill mpv
         break
