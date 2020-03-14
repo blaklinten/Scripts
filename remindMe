@@ -7,7 +7,14 @@ echo "Ok, when shall I remind you?"
 read DATE
 
 # Verify date
-DATE=$(date -d $DATE | head -c 16)
+if [ $(echo $DATE | head -c 1) = "+" ]; then
+    NOW=$(date +%s)
+    DIFF=$(expr $(echo $DATE | sed s/+//) \* 60)
+    SUM=$(expr $NOW + $DIFF)
+    DATE=$(date -d @$SUM | head -c 16)
+else
+    DATE=$(date -d $DATE | head -c 16)
+fi
 
 echo "-------------------"
 echo "Will remind you on:"
@@ -18,7 +25,7 @@ echo "-------------------"
 # Check regulary if now is the time
 while true; do
     if [[ $(date | head -c 16) == $DATE ]]; then
-        mplayer "/home/blaklinten/Musik/Dip Da Dee Da Dee Da Doh Doh.mp3"
+        mplayer "/home/blaklinten/Musik/Dip Da Dee Da Dee Da Doh Doh.mp3"&
         xmessage $WHAT -center
         pkill mpv
         break
