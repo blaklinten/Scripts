@@ -27,7 +27,7 @@ while true; do
     if [[ $(date | head -c 16) == $DATE ]]; then
         mplayer "/home/blaklinten/Musik/Dip Da Dee Da Dee Da Doh Doh.mp3"&
         xmessage $WHAT -center
-        pkill mpv
+        pkill mplayer
         break
     fi
     sleep 30s
