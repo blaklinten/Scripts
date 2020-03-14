@@ -12,7 +12,7 @@ LOG=${SRC}.log
 PDF=${SRC}.pdf
 
 # Clean target
-if [ -n ${1} -a ${1} = "clean" ]; then
+if [ ${1} ] && [ ${1} = "clean" ]; then
     rm -v ${AUX} ${BBL} ${BLG} ${LOG} ${PDF}
     exit
 fi
