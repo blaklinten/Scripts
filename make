@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Parse input
-SRC=${1%.*}
+SRC=${}
 
 # Set up files to process
 TEX=${SRC}.tex
@@ -12,9 +12,8 @@ LOG=${SRC}.log
 PDF=${SRC}.pdf
 
 # Clean target
-if [ -n ${2} -a ${2} = "clean" ]; then
-    echo rm ${AUX} ${BBL} ${BLG} ${LOG} ${PDF}
-    rm ${AUX} ${BBL} ${BLG} ${LOG} ${PDF}
+if [ -n ${1} -a ${1} = "clean" ]; then
+    rm -v ${AUX} ${BBL} ${BLG} ${LOG} ${PDF}
     exit
 fi
 
