@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Parse input
-SRC=${}
+SRC=
 
 # Set up files to process
 TEX=${SRC}.tex
