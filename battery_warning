@@ -1,10 +1,9 @@
 #!/bin/sh
 
 # Warn me if the battery status is 10% or lower
- BAT=$(cat /sys/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A08:00/device:08/PNP0C09:00/PNP0C0A:00/power_supply/BAT0/capacity)
 
  while true; do
     sleep 60
-    [ $BAT -lt 12 ] && xmessage "Warning: Battery level low" && continue
-    [ $BAT < 5 ] && xmessage "Warning: Battery level critical"
+ 	BAT="$(cat /sys/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A08:00/device:08/PNP0C09:00/PNP0C0A:00/power_supply/BAT0/capacity)"
+    [ $BAT -lt 10 ] && xmessage "Warning: Battery level $BAT" && continue
 done

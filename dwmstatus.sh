@@ -7,11 +7,11 @@ setName()
 }
 
 while true; do
-  CONNECTED=$(cat /sys/class/net/wlp2s0/operstate)
+  CONNECTED=$(cat /sys/class/net/wlp4s0/operstate)
   quota=$(echo "$(cat /sys/class/power_supply/BAT0/capacity)/10" | bc)
 
 
-  if [ $(cat /sys/class/power_supply/BAT0/status) == "Discharging" ]; then
+  if [ "$(cat /sys/class/power_supply/BAT0/status)" = "Discharging" ]; then
     case $quota in
       "0")
         BAT="---------- |"
