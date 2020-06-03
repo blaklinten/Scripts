@@ -9,4 +9,5 @@ elif [[ $State == "1" ]]
 then
     xinput set-prop "Synaptics TM3072-003" 152 0
     unclutter -idle 0 -jitter 10 -root &
+    xdotool mousemove 960 540
 fi

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+IP="$(curl ifconfig.me)"
+
+while true; do
+	sleep 5m;
+	NEW_IP="$(curl ifconfig.me)";
+	if [ 
