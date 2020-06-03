@@ -3,7 +3,7 @@
 IP="$(curl ifconfig.me)"
 
 while true; do
-	sleep 10;
+	sleep 5m;
 	NEW_IP="$(curl ifconfig.me)";
 	printf '%s\n%s%s\n%s%s\n' \
 		"$(date)" "Old IP: " "$IP" "New IP: " "$NEW_IP"  >> ~/.duckdns.log
