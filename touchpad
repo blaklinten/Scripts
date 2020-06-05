@@ -4,9 +4,11 @@
 case "$(uname -n)" in
 	"x1-carbon")
 		T_NAME="Synaptics TM3072-003"
+		CENTER="960 540"
 		;;
 	"dubian")
-	T_NAME="AlpsPS/2 ALPS GlidePoint"	
+		T_NAME="AlpsPS/2 ALPS GlidePoint"	
+		CENTER="683 384"
 		;;
 esac
 
@@ -20,5 +22,5 @@ elif [[ $State == "1" ]]
 then
     xinput set-prop "$T_NAME" 152 0
     unclutter -idle 0 -jitter 10 -root &
-    xdotool mousemove 960 540
+    xdotool mousemove $CENTER
 fi
