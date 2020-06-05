@@ -8,6 +8,6 @@ while true; do
 	printf '%s\n%s%s\n%s%s\n' \
 		"$(date)" "Old IP: " "$IP" "New IP: " "$NEW_IP"  >> ~/.duckdns.log
 	if [ "$NEW_IP" != "$IP" ]; then
-		curl https://www.duckdns.org/update?domains=mircas\&token=8a62211f-8de0-432c-9f72-5fbd38ce1ff8 >> ~/.duckdns.log
+		curl https://www.duckdns.org/update?domains=mircas\&token=TOKEN >> ~/.duckdns.log
 	fi
 done
