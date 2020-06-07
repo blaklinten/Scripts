@@ -7,9 +7,9 @@ GIT=/home/blaklinten/Git
 pushd $GIT > /dev/null
 for dir in Backups Scripts; do
     pushd $dir > /dev/null
+    git commit -a -m "Automated update"
     git fetch origin
     git rebase origin/master
-    git commit -a -m "Automated update"
     git push
     popd > /dev/null
 done
