@@ -11,7 +11,7 @@ case "$(uname -n)" in
 		T_NAME="AlpsPS/2 ALPS GlidePoint"	
 		CENTER="683 384"
 		;; 
-		"elx781653y4")
+	"elx781653y4")
                 T_NAME="ALP0018:00 044E:121B Touchpad"
                 CENTER="960 540"
                 ;;
