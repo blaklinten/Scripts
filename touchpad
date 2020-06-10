@@ -10,7 +10,11 @@ case "$(uname -n)" in
 	"dubian")
 		T_NAME="AlpsPS/2 ALPS GlidePoint"	
 		CENTER="683 384"
-		;;
+		;; 
+		"elx781653y4")
+                T_NAME="ALP0018:00 044E:121B Touchpad"
+                CENTER="960 540"
+                ;;
 esac
 
 xinput --set-prop "$T_NAME" "libinput Tapping Enabled" 1
@@ -20,11 +24,11 @@ State=$(xinput list-props "$T_NAME" | grep "Device Enabled" | tail -c 2)
 
 if [[ $State == "0" ]]
 then
-    xinput set-prop "$T_NAME" 152 1
+    xinput set-prop "$T_NAME" "Device Enabled" 1
     pkill unclutter
 elif [[ $State == "1" ]]
 then
-    xinput set-prop "$T_NAME" 152 0
+    xinput set-prop "$T_NAME" "Device Enabled" 0
     unclutter -idle 0 -jitter 10 -root &
     xdotool mousemove $CENTER
 fi
