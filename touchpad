@@ -5,16 +5,13 @@
 case "$(uname -n)" in
 	"x1-carbon")
 		T_NAME="Synaptics TM3072-003"
-		CENTER="960 540"
 		;;
 	"dubian")
 		T_NAME="AlpsPS/2 ALPS GlidePoint"	
-		CENTER="683 384"
 		;; 
 	"elx781653y4")
-                T_NAME="ALP0018:00 044E:121B Touchpad"
-                CENTER="960 540"
-                ;;
+		T_NAME="ALP0018:00 044E:121B Touchpad"
+		;;
 esac
 
 xinput --set-prop "$T_NAME" "libinput Tapping Enabled" 1
@@ -24,11 +21,22 @@ State=$(xinput list-props "$T_NAME" | grep "Device Enabled" | tail -c 2)
 
 if [[ $State == "0" ]]
 then
-    xinput set-prop "$T_NAME" "Device Enabled" 1
-    pkill unclutter
+	xinput set-prop "$T_NAME" "Device Enabled" 1
+	pkill unclutter
 elif [[ $State == "1" ]]
 then
-    xinput set-prop "$T_NAME" "Device Enabled" 0
-    unclutter -idle 0 -jitter 10 -root &
-    xdotool mousemove $CENTER
+	xinput set-prop "$T_NAME" "Device Enabled" 0
+	unclutter -idle 0 -jitter 10 -root &
+	# Find what screen(s) are present
+	INTERNAL_SCREEN=$(xrandr|grep "primary"|cut -d " " -f 1)
+	EXTERNAL_SCREEN=$(xrandr|grep " connected"|grep -v "primary"|cut -d " " -f 1)
+
+	if [ -n "$EXTERNAL_SCREEN" ]; then
+		CENTER_X=$(expr "$(xrandr|grep "$EXTERNAL_SCREEN"|cut -d " " -f 3|cut -d "+" -f 1|cut -d "x" -f 1)" / 2)
+		CENTER_Y=$(expr "$(xrandr|grep "$EXTERNAL_SCREEN"|cut -d " " -f 3|cut -d "+" -f 1|cut -d "x" -f 2)" / 2)
+	else
+		CENTER_X=$(expr "$(xrandr|grep "$INTERNAL_SCREEN" -d " " -f 4|cut -d "+" -f 1|cut -d "x" -f 1)" / 2)
+		CENTER_Y=$(expr "$(xrandr|grep "$INTERNAL_SCREEN" -d " " -f 4|cut -d "+" -f 1|cut -d "x" -f 2)" / 2)
+	fi
+	xdotool mousemove $CENTER
 fi
