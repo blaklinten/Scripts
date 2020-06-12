@@ -38,5 +38,5 @@ then
 		CENTER_X=$(expr "$(xrandr|grep "$INTERNAL_SCREEN" -d " " -f 4|cut -d "+" -f 1|cut -d "x" -f 1)" / 2)
 		CENTER_Y=$(expr "$(xrandr|grep "$INTERNAL_SCREEN" -d " " -f 4|cut -d "+" -f 1|cut -d "x" -f 2)" / 2)
 	fi
-	xdotool mousemove $CENTER
+	xdotool mousemove $CENTER_X $CENTER_Y
 fi
