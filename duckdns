@@ -1,6 +1,7 @@
 #!/bin/sh
 
 IP="$(curl ifconfig.me)"
+curl https://www.duckdns.org/update?domains=mircas\&token=TOKEN >> ~/.duckdns.log
 
 while true; do
 	sleep 5m;
@@ -9,5 +10,7 @@ while true; do
 		"$(date)" "Old IP: " "$IP" "New IP: " "$NEW_IP"  >> ~/.duckdns.log
 	if [ "$NEW_IP" != "$IP" ]; then
 		curl https://www.duckdns.org/update?domains=mircas\&token=TOKEN >> ~/.duckdns.log
+		printf '%s\n' "New IP! $NEW_IP" >> ~/.duckdns.log
+		IP="$NEW_IP"
 	fi
 done
