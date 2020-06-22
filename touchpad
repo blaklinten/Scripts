@@ -32,11 +32,11 @@ then
 	EXTERNAL_SCREEN=$(xrandr|grep " connected"|grep -v "primary"|cut -d " " -f 1)
 
 	if [ -n "$EXTERNAL_SCREEN" ]; then
-		CENTER_X=$(expr "$(xrandr | grep "$EXTERNAL_SCREEN" | cut -d " " -f 3 | cut -d "+" -f 1 | cut -d "x" -f 1)" / 2)
-		CENTER_Y=$(expr "$(xrandr | grep "$EXTERNAL_SCREEN" | cut -d " " -f 3 | cut -d "+" -f 1 | cut -d "x" -f 2)" / 2)
+		CENTER_X=$(expr "$(xrandr | grep "^$EXTERNAL_SCREEN" | cut -d " " -f 3 | cut -d "+" -f 1 | cut -d "x" -f 1)" / 2)
+		CENTER_Y=$(expr "$(xrandr | grep "^$EXTERNAL_SCREEN" | cut -d " " -f 3 | cut -d "+" -f 1 | cut -d "x" -f 2)" / 2)
 	else
-		CENTER_X=$(expr "$(xrandr | grep "$INTERNAL_SCREEN" | cut -d " " -f 4 | cut -d "+" -f 1 | cut -d "x" -f 1)" / 2)
-		CENTER_Y=$(expr "$(xrandr | grep "$INTERNAL_SCREEN" | cut -d " " -f 4 | cut -d "+" -f 1 | cut -d "x" -f 2)" / 2)
+		CENTER_X=$(expr "$(xrandr | grep "^$INTERNAL_SCREEN" | cut -d " " -f 4 | cut -d "+" -f 1 | cut -d "x" -f 1)" / 2)
+		CENTER_Y=$(expr "$(xrandr | grep "^$INTERNAL_SCREEN" | cut -d " " -f 4 | cut -d "+" -f 1 | cut -d "x" -f 2)" / 2)
 	fi
 	xdotool mousemove $CENTER_X $CENTER_Y
 fi
