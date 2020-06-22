@@ -4,17 +4,17 @@
 echo "What shall I remind you about?"
 read WHAT
 echo "Ok, when shall I remind you?"
-read DATE
+read STOP_TIME
 
 # Verify date
-if [ $(echo $DATE | head -c 1) = "+" ]; then
+if [ $(echo $STOP_TIME | head -c 1) = "+" ]; then
     NOW=$(date +%s)
-    DIFF=$(expr $(echo $DATE | sed s/+//) \* 60)
-    SUM=$(expr $NOW + $DIFF)
-    DATE=$(date -d @$SUM | head -c 16)
+    DIFF=$(expr $(echo $STOP_TIME | sed s/+//) \* 60)
+    STOP_TIME=$(expr $NOW + $DIFF)
 else
-    DATE=$(date -d $DATE | head -c 16)
+    STOP_TIME=$(date -d $STOP_TIME +%s)
 fi
+DATE="$(date --date=@$STOP_TIME)"
 
 echo "-------------------"
 echo "Will remind you on:"
@@ -24,10 +24,8 @@ echo "-------------------"
 
 # Check regulary if now is the time
 while true; do
-    if [[ $(date | head -c 16) == $DATE ]]; then
-        mplayer "/home/blaklinten/Musik/Dip Da Dee Da Dee Da Doh Doh.mp3"&
+    if [ "$(date +%s)" -ge "$STOP_TIME" ]; then
         xmessage $WHAT -center
-        pkill mplayer
         break
     fi
     sleep 30s
