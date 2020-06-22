@@ -4,6 +4,6 @@
 
  while true; do
     sleep 60
- 	BAT="$(cat /sys/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A08:00/device:08/PNP0C09:00/PNP0C0A:00/power_supply/BAT0/capacity)"
-    [ $BAT -lt 10 ] && xmessage "Warning: Battery level $BAT" && continue
+ 	BAT="$(cat /sys/class/power_supply/BAT0/capacity)"
+    [ $BAT -lt 10 ] && xmessage -c "Warning: Battery level $BAT" && continue
 done
