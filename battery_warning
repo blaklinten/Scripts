@@ -5,5 +5,5 @@
  while true; do
     sleep 60
  	BAT="$(cat /sys/class/power_supply/BAT0/capacity)"
-    [ $BAT -lt 10 ] && xmessage -c "Warning: Battery level $BAT" && continue
+    [ $BAT -lt 10 ] && xmessage -c "Warning: Battery level $BAT" 
 done
