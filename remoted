@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Remote control any device using only ssh, netcat and xdotool
+# Server side
+
+PORT="1234"
+
+while read COMMAND < /dev/tcp/127.0.0.1/$PORT; do
+	case "$COMMAND" in
+	"1")
+		xdotool click 1
+		;;
+	"2")
+		amixer -q sset Master 3%+
+		;;
+	"3")
+		amixer -q sset Master 3%-
+		;;
+	*)
+		echo "Unknown command"
+		;;
+	esac
+done

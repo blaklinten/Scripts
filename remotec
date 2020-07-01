@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Client side for the remote script
+
+PORT="1234"
+
+echo "To play/pause send 1"
+echo "To raise volune send 2"
+echo "To lower volune send 3"
+
+nc -klp $PORT
