@@ -1,5 +1,13 @@
 #!/bin/sh
 
+# If dns service is already running, do nothing
+N=$(ps -e | grep duckdns | wc -l)
+
+# -gt "2" since subshell gives spwn to one more instance of duckdns process?
+if [ "$N" -gt "2" ]; then
+	exit
+fi
+
 IP="$(curl ifconfig.me)"
 curl https://www.duckdns.org/update?domains=mircas\&token=TOKEN >> ~/.duckdns.log
 
