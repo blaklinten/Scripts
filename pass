@@ -1,117 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 
-# Pass is an implementation of the standard UNIX password manager
+# Pass is a dmenu wrapper script around pash
 
-# Current user:
-USER="Lucas Nilsson"
+# Set up environment
+PASH=~/Git/pash/pash
 
-PS3="Enter number of choice, 0 for exit: "
+# Main
 
-# Helper functions
 
-print_usage()
-{
-  echo "Usage: pass [ OPTION ]"
-  echo "Where OPTION := { push | pull"
-  echo "                  (generate | -g) [ ARG ]"
-  echo "                  (add | -a)"
-  echo "                  (show | -s)"
-  echo "                  (help | -h)"
-  echo "      ARG := { int PASS_LENGTH }"
-  echo "Default behaviour is 'decrypt mode'"
-}
-
-ch_dir()
-{
-  echo "Categories: "
-  select DIR in *; do
-    if [[ -d ${DIR} ]]; then
-      pushd ${DIR} > /dev/null
-      break
-    else
-      exit
-    fi
-  done
-}
-
-show_all()
-{
-  for DIR in *; do
-    if [[ -d ${DIR} ]]; then
-      echo "|---- ${DIR} ----"
-      pushd ${DIR} > /dev/null
-      for PASS in *; do
-        echo "|-- ${PASS}"
-      done
-      echo "|"
-      popd > /dev/null
-    else
-      continue
-    fi
-  done
-      
-}
-
-generate()
-{
-  ch_dir
-  echo "Enter name of new password: "
-  read NAME
-  echo $(cat /dev/urandom | base64 | head -c ${1:-77})  | gpg -e -r "${USER}" > ${NAME}.gpg
-  git add ${NAME}.gpg
-  git commit -a -m "Added generated password ${NAME}"
-}
-
-add()
-{
-  ch_dir
-  echo "Enter name of new password: "
-  read NAME
-  echo "Enter new password: "
-  read PASS
-  echo ${PASS} | gpg -e -r "${USER}" > ${NAME}.gpg
-  git add ${NAME}.gpg
-  git commit -a -m "Added generated password ${NAME}"
-}
-
-decrypt()
-{
-select FILE in *; do
- if [[ -d ${FILE} ]]; then
-   pushd ${FILE} > /dev/null
-   decrypt
- elif [[ -f ${FILE} ]]; then
-   gpg -d ${FILE} 2> /dev/null | xclip
-   echo "Password copied to primary selection!"
-   exit
- else
-   echo Bye!
-   exit
- fi
-done
-}
-
-pushd ~/.password-store > /dev/null
-case ${1} in
-  "push")
-    git push
-  ;;
-  "pull")
-    git pull
-  ;;
-  "generate"|"-g")
-    generate ${2}
-  ;;
-  "add"|"-a")
-    add
-  ;;
-  "show"|"-s")
-    show_all
-  ;;
-  "help"|"-h")
-    print_usage
-  ;;
-  *)
-    decrypt
-  ;;
-esac
+PASSWD=$($PASH l | dmenu -i -l 80)
+[ -n "$PASSWD" ] && st -t "scratchpad" -g 60x20 $PASH c $PASSWD
