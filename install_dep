@@ -1,0 +1,25 @@
+PROGRAMS="\
+man \
+screen \
+vim \
+xorg \
+firmware-iwlwifi \
+network-manager \
+gnupg \
+git \
+bspwm \
+bash-completion \
+dmenu \
+firefox-esr \
+mupdf \
+compton \
+htop \
+xinput \
+unclutter \
+pavucontrol \
+feh \
+alsa-utils \
+xdotool \
+"
+	
+apt install $PROGRAMS
