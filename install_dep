@@ -9,7 +9,7 @@ gnupg \
 git \
 bspwm \
 bash-completion \
-dmenu \
+suckless-tools \
 firefox-esr \
 mupdf \
 compton \
