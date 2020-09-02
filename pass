@@ -2,14 +2,11 @@
 
 # Pass is a dmenu wrapper script around pash
 
-# Set up environment
-PASH=~/Git/pash/pash
-
 # Main
 
 
-PASSWD=$($PASH l | dmenu -i -l 80)
-[ -n "$PASSWD" ] && xterm -class FLOATING -e "$PASH s $PASSWD | xsel -i"
+PASSWD=$(pash l | dmenu -i -l 80)
+[ -n "$PASSWD" ] && xterm -class FLOATING -e "pash s $PASSWD | xsel -i"
 
 {
 	sleep 15s && xsel -d
