@@ -9,4 +9,4 @@ PASH=~/Git/pash/pash
 
 
 PASSWD=$($PASH l | dmenu -i -l 80)
-[ -n "$PASSWD" ] && st -t "scratchpad" -g 60x20 $PASH c $PASSWD
+[ -n "$PASSWD" ] && xterm -e "$PASH s $PASSWD | xsel -i"
