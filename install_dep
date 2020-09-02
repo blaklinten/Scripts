@@ -1,7 +1,7 @@
 PROGRAMS="\
 man \
 screen \
-vim \
+vim-gtk \
 xorg \
 firmware-iwlwifi \
 network-manager \
@@ -21,6 +21,7 @@ feh \
 alsa-utils \
 xdotool \
 xsel \
+xbacklight \
 "
 	
 apt install $PROGRAMS
