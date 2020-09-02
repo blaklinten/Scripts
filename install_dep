@@ -20,7 +20,7 @@ pavucontrol \
 feh \
 alsa-utils \
 xdotool \
-xclip \
+xsel \
 "
 	
 apt install $PROGRAMS
