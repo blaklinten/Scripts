@@ -9,7 +9,7 @@ PASH=~/Git/pash/pash
 
 
 PASSWD=$($PASH l | dmenu -i -l 80)
-[ -n "$PASSWD" ] && xterm -e "$PASH s $PASSWD | xsel -i"
+[ -n "$PASSWD" ] && xterm -class FLOATING -e "$PASH s $PASSWD | xsel -i"
 
 {
 	sleep 15s && xsel -d
