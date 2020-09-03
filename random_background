@@ -4,7 +4,7 @@
 
 IFS=$'\n'
 
-PIC_DIR=~/Git/wallpapers
+PIC_DIR=~/Pic/wallpapers
 
 # Calculate number of files
 for PIC in $(find ${PIC_DIR} -type f); do
