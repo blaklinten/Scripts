@@ -23,6 +23,7 @@ xdotool \
 xsel \
 xbacklight \
 rsync \
+ftp \
 "
 	
 apt install $PROGRAMS
