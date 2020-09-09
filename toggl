@@ -4,11 +4,11 @@
 
 case "$1" in 
 	"start")
-		_toggle $@
+		_toggl $@
 		[ "$?" != 0 ] && MESSAGE="Something went wrong..." || MESSAGE="$2 was started."
 		dmenu -p "$MESSAGE"
 	;;
 	*)
-		_toggle $@ | dmenu -l 30
+		_toggl $@ | dmenu -l 30
 	;;
 esac
