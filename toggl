@@ -1,0 +1,14 @@
+#!/bin/sh
+
+[ -z $@ ] && dmenu -p "Give at lease one argument!" && exit
+
+case "$1" in 
+	"start")
+		_toggle $@
+		[ "$?" != 0 ] && MESSAGE="Something went wrong..." || MESSAGE="$2 was started."
+		dmenu -p "$MESSAGE"
+	;;
+	*)
+		_toggle $@ | dmenu -l 30
+	;;
+esac
