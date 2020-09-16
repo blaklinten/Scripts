@@ -11,7 +11,7 @@ bspwm \
 bash-completion \
 suckless-tools \
 firefox-esr \
-mupdf \
+zathura \
 compton \
 htop \
 xinput \
