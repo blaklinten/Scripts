@@ -7,7 +7,7 @@ GIT=/home/blaklinten/Git
 pushd $GIT > /dev/null
 for dir in Backups Scripts; do
     pushd $dir > /dev/null
-    printf "%s\n" "$dir"
+    printf "===========********\nNow in dir: %s\n===========********\n" "$dir"
     git diff
     git commit -a -m "Automated update"
     git fetch origin
