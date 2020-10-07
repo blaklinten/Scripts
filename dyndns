@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# If dns service is already running, do nothing
+N=$(ps -e | grep dyndns | wc -l)
+
+# -gt "2" since subshell gives spwn to one more instance of dyndns process?
+if [ "$N" -gt "2" ]; then
+	exit
+fi
+
+USERNAME="XXX@mail.com"
+HOSTNAME="site@domain.com"
+PASSWORD="XXX"
+
+IP="$(curl -s ifconfig.me)"
+BASEURL="https://dyndns.egensajt.se/nic/update"
+PARAMS="hostname=$HOSTNAME&myip=$IP"
+
+ curl -s --user $USERNAME:$PASSWORD $BASEURL?$PARAMS >> ~/.dyndns.log
+
+while true; do
+	sleep 5m;
+	NEW_IP="$(curl -s  ifconfig.me)";
+	printf '%s\n%s%s\n%s%s\n' \
+		"$(date)" "Old IP: " "$IP" "New IP: " "$NEW_IP"  >> ~/.dyndns.log
+	if [ "$NEW_IP" != "$IP" ]; then
+ curl -s --user $USERNAME:$PASSWORD $BASEURL?$PARAMS >> ~/.dyndns.log
+		printf '%s\n' "New IP! $NEW_IP" >> ~/.dyndns.log
+		IP="$NEW_IP"
+	fi
+done
