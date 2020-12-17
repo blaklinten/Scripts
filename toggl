@@ -1,14 +1,45 @@
 #!/bin/sh
+DMENU_SHOW="dmenu -l 30"
 
-[ -z $@ ] && dmenu -p "Give at lease one argument!" && exit
+ACTIONS="add past entry
+continue last entry
+list all entries
+show running
+start new entry
+stop current enrty (if any)"
 
-case "$1" in 
-	"start")
-		_toggl $@
-		[ "$?" != 0 ] && MESSAGE="Something went wrong..." || MESSAGE="$2 was started."
-		dmenu -p "$MESSAGE"
+ACTION=$(echo "${ACTIONS}" | dmenu -p "What do you want to do?")
+
+case $ACTION in
+	"add"*)
+		START=$(dmenu -p "Enter start time:")
+		STOP=$(dmenu -p "Enter duration (:d:h:m:s):")
+		DESC=$(dmenu -p "Enter description:")
+		_toggl add $START $STOP $DESC | $DMENU_SHOW
+	;;
+	"continue"*)
+		_toggl continue 
+		_toggl now | $DMENU_SHOW
+	;;
+	"list"*)
+		_toggl ls | $DMENU_SHOW
+	;;
+	"show"*)
+		_toggl now | $DMENU_SHOW
+	;;
+	"start"*)
+		PROJ=$(_toggl projects ls | dmenu -i -l 30 -p "Choose an existing project:")
+		PROJ=${PROJ#${PROJ%%[![:space:]]*}}
+		PROJ=${PROJ%% *}
+		DESC=$(dmenu -p "Enter description:")
+		_toggl start $DESC -o ${PROJ%% *}
+		_toggl now | $DMENU_SHOW
+	;;
+	"stop"*)
+		_toggl stop | $DMENU_SHOW
+		_toggl now | $DMENU_SHOW
 	;;
 	*)
-		_toggl $@ | dmenu -l 30
+		echo "Command \"$ACTION\" not implemented, exiting..." | dmenu
 	;;
 esac
