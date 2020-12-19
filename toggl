@@ -15,7 +15,7 @@ case $ACTION in
 		START=$(dmenu -p "Enter start time:")
 		STOP=$(dmenu -p "Enter duration (:d:h:m:s):")
 		DESC=$(dmenu -p "Enter description:")
-		_toggl add $START $STOP $DESC | $DMENU_SHOW
+		_toggl add $START $STOP "$DESC" | $DMENU_SHOW
 	;;
 	"continue"*)
 		_toggl continue 
@@ -32,7 +32,7 @@ case $ACTION in
 		PROJ=${PROJ#${PROJ%%[![:space:]]*}}
 		PROJ=${PROJ%% *}
 		DESC=$(dmenu -p "Enter description:")
-		_toggl start $DESC -o ${PROJ%% *}
+		_toggl start "$DESC" -o ${PROJ%% *}
 		_toggl now | $DMENU_SHOW
 	;;
 	"stop"*)
