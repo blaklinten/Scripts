@@ -26,7 +26,7 @@ for PIC in $(find ${PIC_DIR} -type f); do
                 echo /home/blaklinten/Git/wallpapers/Titans/of_the_wood.png
             fi
         else
-            feh --bg-fill $PIC
+            xwallpaper --zoom $PIC
         fi
         break
     fi
