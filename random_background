@@ -2,32 +2,12 @@
 
 # This script chooses a random background from $PIC_DIR
 
-IFS=$'\n'
+PIC_DIR=~/Pic/wallpapers/
 
-PIC_DIR=~/Pic/wallpapers
+NUM=$(find $PIC_DIR -type f | wc -l)
 
-# Calculate number of files
-for PIC in $(find ${PIC_DIR} -type f); do
-    let "NUM = $NUM + 1";
-done
-
-# Find new background "index"
 let "NEW = $RANDOM % $NUM + 1"
 
-# Set new background
-CURRENT=0
-for PIC in $(find ${PIC_DIR} -type f); do
-    let "CURRENT = $CURRENT + 1"
-    if [[ $CURRENT == $NEW ]]; then
-        if [[ $1 == 'png' ]]; then
-            if [[ ${PIC: -3} == "png" ]]; then
-                echo $PIC
-            else
-                echo /home/blaklinten/Git/wallpapers/Titans/of_the_wood.png
-            fi
-        else
-            xwallpaper --zoom $PIC
-        fi
-        break
-    fi
-done
+PIC=$(find $PIC_DIR -type f | sed ${NEW}p -n)
+
+xwallpaper --zoom $PIC
