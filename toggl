@@ -8,14 +8,14 @@ show running
 start new entry
 stop current enrty (if any)"
 
-ACTION=$(echo "${ACTIONS}" | dmenu -p "What do you want to do?")
+ACTION=$(echo "$ACTIONS" | dmenu -p "What do you want to do?")
 
-case $ACTION in
+case "$ACTION" in
 	"add"*)
 		START=$(dmenu -p "Enter start time:")
 		STOP=$(dmenu -p "Enter duration (:d:h:m:s):")
 		DESC=$(dmenu -p "Enter description:")
-		_toggl add $START $STOP "$DESC" | $DMENU_SHOW
+		_toggl add "$START" "$STOP" "$DESC" | $DMENU_SHOW
 	;;
 	"continue"*)
 		_toggl continue 
@@ -29,10 +29,10 @@ case $ACTION in
 	;;
 	"start"*)
 		PROJ=$(_toggl projects ls | dmenu -i -l 30 -p "Choose an existing project:")
-		PROJ=${PROJ#${PROJ%%[![:space:]]*}}
-		PROJ=${PROJ%% *}
-		DESC=$(dmenu -p "Enter description:")
-		_toggl start "$DESC" -o ${PROJ%% *}
+		PROJ="${PROJ#${PROJ% [0-9]*}}"
+		DESC="$(_toggl ls -o "$PROJ" | dmenu -i -l 30 -p "Choose a previous or enter a new entry:")"
+		DESC="${DESC%% [0-9]*}"
+		_toggl start "$DESC" -o "$PROJ"
 		_toggl now | $DMENU_SHOW
 	;;
 	"stop"*)
