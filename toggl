@@ -30,8 +30,12 @@ case "$ACTION" in
 	"start"*)
 		PROJ=$(_toggl projects ls | dmenu -i -l 30 -p "Choose an existing project:")
 		PROJ="${PROJ#${PROJ% [0-9]*}}"
+		PROJ="${PROJ#* }"
+		PROJ="${PROJ%% *}"
 		DESC="$(_toggl ls -o "$PROJ" | dmenu -i -l 30 -p "Choose a previous or enter a new entry:")"
 		DESC="${DESC%% [0-9]*}"
+		DESC="${DESC#* }"
+		DESC="${DESC%% *}"
 		_toggl start "$DESC" -o "$PROJ"
 		_toggl now | $DMENU_SHOW
 	;;
