@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ -n "$1" ]; then
+  FILE="$(realpath "$1")"
+	rsync --chmod=u+rw,g=r,o=r "$FILE" pi:/home/pi/files/
+  URL="https://centaurea-cyanus.se/files/"
+  printf "$URL%s\n" "${FILE##*/}"
+else
+	printf "%s\n" "Give one (1) argument!"
+fi
