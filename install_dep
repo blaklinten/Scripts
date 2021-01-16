@@ -24,6 +24,7 @@ xdotool \
 xsel \
 xbacklight \
 rsync \
+pass \
 "
 	
 apt install $PROGRAMS
