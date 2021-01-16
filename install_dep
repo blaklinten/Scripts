@@ -24,8 +24,6 @@ xdotool \
 xsel \
 xbacklight \
 rsync \
-ftp \
-latex-make \
 "
 	
 apt install $PROGRAMS
