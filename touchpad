@@ -9,9 +9,6 @@ case "$(uname -n)" in
 	"dubian")
 		T_NAME="AlpsPS/2 ALPS GlidePoint"	
 		;; 
-	"elx781653y4")
-		T_NAME="ALP0018:00 044E:121B Touchpad"
-		;;
 esac
 
 xinput --set-prop "$T_NAME" "libinput Tapping Enabled" 1
