@@ -19,11 +19,11 @@ if [[ $Ans == "AddBookmark" ]]; then
         fi
     fi
     exit
-elif [[ $Ans == "Google" ]]
+elif [[ $Ans == "Search" ]]
 then
-    Search=$(echo "Input Google search" | dmenu | sed 's/ /+/g')
+    Search=$(echo "Input search phrase" | dmenu | sed 's/ /+/g')
     if [[ $Search != "" ]]; then
-        exec firefox $Session http://www.google.com/search?q=$Search
+        exec firefox $Session https://www.duckduckgo.com/?q=$Search
     fi
 elif [[ $Ans != "" ]]
 then
