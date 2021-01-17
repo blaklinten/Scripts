@@ -6,7 +6,7 @@ case "$(uname -n)" in
 	"x1-carbon")
 		T_NAME="Synaptics TM3072-003"
 		;;
-	"debian")
+	"dubian")
 		T_NAME="AlpsPS/2 ALPS GlidePoint"	
 		;; 
 	"elx781653y4")
