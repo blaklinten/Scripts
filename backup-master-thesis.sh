@@ -15,7 +15,7 @@ backup()
 {
 	cd $BACKUP_DEST
 	while true; do
-		git pull
+		git pull > ~/.backup.log
 		sleep $TIME_TO_SLEEP
 	done
 }
