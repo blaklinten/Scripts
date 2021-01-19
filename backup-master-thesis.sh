@@ -2,14 +2,14 @@
 
 # Change these appropriately:
 # --------------------------------------
-REPO_NAME="git.overleaf.com/HASH" # Do _NOT_ add the ".git"-part of the URL, if any
-OVERLEAF_USERNAME="student@student.chalmers.se"
+HASH="_hash_" # Do _NOT_ add the ".git"-part of the URL, if any
+OVERLEAF_USERNAME="_student_@student.chalmers.se"
 TIME_TO_SLEEP="24h" #Back up once every 24 hours
 # --------------------------------------
 
+OVERLEAF_URL="git.overleaf.com"
 HTTPS_UNAME=$(echo $OVERLEAF_USERNAME | sed -e 's/\@/\%40/')
-FOLDER_NAME="${REPO_NAME##*/}"
-BACKUP_DEST="/storage/$USER/$FOLDER_NAME"
+BACKUP_DEST="/storage/$USER/$HASH"
 
 backup()
 {
@@ -25,7 +25,7 @@ if [ -d $BACKUP_DEST ]; then
 else
  	cd /storage/$USER/
  	printf "%s\n" "Please enter your password when prompted."
- 	git clone https://$HTTPS_UNAME@$REPO_NAME
+ 	git clone https://$HTTPS_UNAME@$OVERLEAF_URL/$HASH
  	cd $BACKUP_DEST
  	git config credential.helper store
  	cd
