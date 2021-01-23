@@ -5,11 +5,11 @@ GIT=~/Git
 
 # Go to Git dir to add, commit and push changes to remote
 pushd $GIT > /dev/null
-for dir in Backups Scripts; do
-    pushd $dir > /dev/null
-    printf "===========********===========\nNow in dir: %s\n===========********===========\n" "$dir"
+for DIR in Backups Scripts; do
+    pushd $DIR > /dev/null
+    printf "===========********===========\nNow in dir: %s\n===========********===========\n" "$DIR"
     git diff
-    git commit -a -m "Automated update"
+    git commit -am"Automated update"
     git fetch origin
     git rebase origin/master
     git push
