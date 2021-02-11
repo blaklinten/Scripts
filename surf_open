@@ -1,27 +1,26 @@
 #!/bin/sh
- Ans=$(sed -n '1~2!p' ~/.bookmarks | dmenu -i)
+ Ans="$(sed -n 'n;p' ~/.bookmarks | dmenu -i)"
 
- if [ ${Ans} = AddBookmark ]; then
-     Name=$(echo "Input name of bookmark" | dmenu)
-     if [ -n ${Name} ]; then
-         URL=$(echo "Input URL of bookmark" | dmenu)
-         if [ -n ${URL} ]; then
-             echo $Name >> ~/.bookmarks
-             echo $URL >> ~/.bookmarks
+ if [ "$Ans" = "AddBookmark" ]; then
+     Name="$(echo "Input name of bookmark" | dmenu)"
+     if [ -n "$Name" ]; then
+         URL="$(echo "Input URL of bookmark" | dmenu)"
+         if [ -n "$URL" ]; then
+             printf '%s\n%s\n' "$Name" "$URL" >> ~/.bookmarks
          fi
      fi
      exit
- elif [ ${Ans} = "Search" ]
+ elif [ "$Ans" = "Search" ]
  then
-     Search=$(echo "Input search phrase" | dmenu | sed 's/ /+/g')
-     if [ -n $Search ]; then
+     Search="$(echo "Input search phrase" | dmenu | sed 's/ /+/g')"
+     if [ -n "$Search" ]; then
          exec surf https://www.duckduckgo.com/?q=$Search
      fi
- elif [ -n  ${Ans} ]
+ elif [ -n  "$Ans" ]
  then
-     if [ -z $(sed -n "/^$Ans$/ {n;p}" ~/.bookmarks) ]; then
-         exec surf $Ans
+     if [ -z "$(sed -n "/^$Ans$/ {n;p;}" ~/.bookmarks)" ]; then
+         exec surf "$Ans"
      else
-         exec surf $(sed -n "/^$Ans$/ {n;p}" ~/.bookmarks)
+         exec surf "$(sed -n "/^$Ans$/ {n;p;}" ~/.bookmarks)"
      fi
  fi
