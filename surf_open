@@ -11,11 +11,11 @@
          fi
      fi
      exit
- elif [ ${Ans} = Google ]
+ elif [ ${Ans} = "Search" ]
  then
-     Search=$(echo "Input Google search" | dmenu | sed 's/ /+/g')
+     Search=$(echo "Input search phrase" | dmenu | sed 's/ /+/g')
      if [ -n $Search ]; then
-         exec surf http://www.google.com/search?q=$Search
+         exec surf https://www.duckduckgo.com/?q=$Search
      fi
  elif [ -n  ${Ans} ]
  then
