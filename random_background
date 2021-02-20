@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # This script chooses a random background from $PIC_DIR
 
@@ -8,6 +8,6 @@ NUM=$(find $PIC_DIR -type f | wc -l)
 
 let "NEW = $RANDOM % $NUM + 1"
 
-PIC=$(find $PIC_DIR -type f | sed ${NEW}p -n)
+PIC=$(find $PIC_DIR -type f | sed -n ${NEW}p)
 
 xwallpaper --zoom $PIC

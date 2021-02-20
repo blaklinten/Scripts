@@ -1,19 +1,18 @@
-#!/bin/bash
+#!/bin/sh
 
-# Set Git dir
-GIT=~/Git
+GIT="$HOME/Git"
+CWD="$PWD"
 
 # Go to Git dir to add, commit and push changes to remote
-pushd $GIT > /dev/null
+cd "$GIT"
 for DIR in Backups Scripts; do
-    pushd $DIR > /dev/null
+    cd "$DIR"
     printf "===========********===========\nNow in dir: %s\n===========********===========\n" "$DIR"
     git diff
     git commit -am"Automated update"
     git fetch origin
     git rebase origin/master
     git push
-    popd > /dev/null
+    cd "$GIT"
 done
-popd > /dev/null
-
+cd "$CWD"
