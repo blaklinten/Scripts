@@ -5,13 +5,8 @@
 PIC_DIR=~/Pic/wallpapers/
 
 NUM=$(find $PIC_DIR -type f | wc -l)
-print $NUM
-
 RANDOM=$(od -An -N2 -l /dev/random)
-print $RANDOM
-
 NEW=$((RANDOM % NUM + 1))
-print $NEW
 
 PIC=$(find $PIC_DIR -type f | sed -n ${NEW}p)
 
