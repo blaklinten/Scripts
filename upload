@@ -7,7 +7,7 @@ if [ -n "$1" ]; then
   DEST_PATH="/home/pi/files/"
   DEST="$USER@$SERVER:$DEST_PATH"
   URL="https://$SERVER/files/"
-  SOURCE="$(realpath "$1")"
+  SOURCE="$(readlink -f "$1")"
 
   rsync -a --chmod=u+rw,g=r,o=r -e "ssh -p $PORT" "$SOURCE" "$DEST"
   printf "$URL%s\n" "${SOURCE##*/}"
