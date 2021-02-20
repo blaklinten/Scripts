@@ -13,23 +13,22 @@ BACKUP_DEST="/storage/$USER/$HASH"
 
 backup()
 {
-	cd $BACKUP_DEST
 	while true; do
-		git pull > ~/.backup.log
+		printf "%s\n" "$(date)" >> "$HOME/.backup-$HASH.log"
+		git pull >> "$HOME/.backup-$HASH.log"
 		sleep $TIME_TO_SLEEP
 	done
 }
 
 if [ -d $BACKUP_DEST ]; then
-	backup
+	cd $BACKUP_DEST
+    backup
 else
- 	cd /storage/$USER/
- 	printf "%s\n" "Please enter your password when prompted."
- 	git clone https://$HTTPS_UNAME@$OVERLEAF_URL/$HASH
- 	cd $BACKUP_DEST
- 	git config credential.helper store
- 	cd
- 	printf "%s\n" "Now run this program again with in the background '& disown'"
-
+    cd /storage/$USER/
+    printf "%s\n" "Please enter your password when prompted."
+    git clone https://$HTTPS_UNAME@$OVERLEAF_URL/$HASH
+    cd $BACKUP_DEST
+    git config credential.helper store
+    cd
+    printf "%s\n" "Now run this program again with in the background '& disown'"
 fi
-
