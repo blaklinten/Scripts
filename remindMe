@@ -1,10 +1,16 @@
 #!/bin/bash
 
+if [ -z "$*" ]; then
+
 # Set a remider for a specified time.
-echo "What shall I remind you about?"
-read WHAT
-echo "Ok, when shall I remind you?"
-read STOP_TIME
+	echo "What shall I remind you about?"
+	read WHAT
+	echo "Ok, when shall I remind you?"
+	read STOP_TIME
+else
+	WHAT="$1"
+	STOP_TIME="$2"
+fi
 
 # Verify date
 if [ $(echo $STOP_TIME | head -c 1) = "+" ]; then
