@@ -17,6 +17,9 @@ setName()
 
 while true; do
   CONNECTED=$(nmcli connection show --active | tail -n1 | cut -f1 -d' ')
+  if [ -z "$CONNECTED" ]; then
+  	  CONNECTED="Offline"
+  fi
 
   if [ ! -f "$BATTERY" ]; then
   	  BAT="No battery present"
