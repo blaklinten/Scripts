@@ -1,17 +1,32 @@
 #!/bin/sh
 
+ACTIVE="$HOME/.trackme/active"
+BATTERY="/sys/class/power_supply/BAT0"
+
 setName()
 {
-  xsetroot -name "W: ${CONNECTED} | ${BAT} $(date)"
-  sleep 1
+  if [ -f "$ACTIVE" ];then
+  	  WORKING="Working at $(sed -n 2p $ACTIVE)"
+  else
+  	  WORKING="Not working atm..."
+  fi
+
+  xsetroot -name " $WORKING | W: ${CONNECTED} | ${BAT} | $(date)"
+  sleep 2
 }
 
 while true; do
-  CONNECTED=$(cat /sys/class/net/wlp4s0/operstate)
-  quota=$(echo "$(cat /sys/class/power_supply/BAT0/capacity)/10" | bc)
+  CONNECTED=$(nmcli connection show --active | tail -n1 | cut -f1 -d' ')
 
+  if [ ! -f "$BATTERY" ]; then
+  	  BAT="No battery present"
+  	  setName
+  	  continue
+  fi
 
-  if [ "$(cat /sys/class/power_supply/BAT0/status)" = "Discharging" ]; then
+  quota=$(echo "$(cat $BATTERY/capacity)/10" | bc)
+
+  if [ "$(cat $BATTERY/status)" = "Discharging" ]; then
     case $quota in
       "0")
         BAT="---------- |"
