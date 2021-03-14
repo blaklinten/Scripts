@@ -26,9 +26,10 @@ elif [ -n  "$Ans" ]; then
     URL="$(sed -n "/^$Ans$/ {n;p;}" ~/.bookmarks)"
     echo "$Ans"
     echo "$URL"
-    if [ -z "$URL" ]; then
-       exec firefox "$Session" "$Ans"
-   else
+    echo "$Session"
+    if [ -n "$URL" ]; then
        exec firefox "$Session" "$URL"
+   else
+       exec firefox "$Session" "$Ans"
    fi
 fi
