@@ -20,13 +20,10 @@ if [ "$Ans" = "AddBookmark" ]; then
 elif [ "$Ans" = "Search" ]; then
     Search="$(echo "Input search phrase" | dmenu | sed 's/ /+/g')"
     if [ -n "$Search" ]; then
-       exec firefox $Session https://www.duckduckgo.com/?q=$Search
+       exec firefox "$Session" "https://www.duckduckgo.com/?q=$Search"
    fi
 elif [ -n  "$Ans" ]; then
     URL="$(sed -n "/^$Ans$/ {n;p;}" ~/.bookmarks)"
-    echo "$Ans"
-    echo "$URL"
-    echo "$Session"
     if [ -n "$URL" ]; then
        exec firefox "$Session" "$URL"
    else
