@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cvlc http://relay3.slayradio.org:8000/
