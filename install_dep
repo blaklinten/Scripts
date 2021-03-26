@@ -1,8 +1,6 @@
 PROGRAMS="\
 alsa-utils \
 bash-completion \
-bspwm \
-compton \
 firefox-esr \
 firmware-iwlwifi \
 git \
