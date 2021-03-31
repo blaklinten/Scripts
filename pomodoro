@@ -1,0 +1,22 @@
+#!/bin/bash
+
+WORK_TIME="$((25*60))"
+PAUS_TIME="$((5*60))"
+
+work()
+{
+    sleep "$WORK_TIME"s
+    xmessage "Time to take a break" -center
+}
+
+paus()
+{
+    sleep "$PAUS_TIME"s
+    xmessage "Time to start working" -center
+}
+
+# Check regulary if now is the time
+while true; do
+	work
+	paus
+done
