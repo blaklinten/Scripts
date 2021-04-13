@@ -5,29 +5,29 @@ BATTERY="/sys/class/power_supply/BAT0"
 
 setName()
 {
+  xsetroot -name " $WORKING | W: ${CONNECTED} | ${BAT} | $(date)"
+  sleep 2
+}
+
+while true; do
   if [ -f "$ACTIVE" ];then
   	  WORKING="Working at $(sed -n 2p $ACTIVE)"
   else
   	  WORKING="Not working atm..."
   fi
 
-  xsetroot -name " $WORKING | W: ${CONNECTED} | ${BAT} | $(date)"
-  sleep 2
-}
-
-while true; do
   CONNECTED=$(nmcli connection show --active | tail -n1 | cut -f1 -d' ')
   if [ -z "$CONNECTED" ]; then
   	  CONNECTED="Offline"
   fi
 
-  if [ ! -f "$BATTERY" ]; then
+  if [ ! -f "$BATTERY/status" ]; then
   	  BAT="No battery present"
   	  setName
   	  continue
   fi
 
-  quota=$(echo "$(cat $BATTERY/capacity)/10" | bc)
+  quota="$(( $(cat $BATTERY/capacity) / 10))"
 
   if [ "$(cat $BATTERY/status)" = "Discharging" ]; then
     case $quota in
