@@ -3,7 +3,7 @@
 
 #Check what machine is running
 case "$(uname -n)" in
-	"x1-carbon")
+	"Lenny")
 		T_NAME="Synaptics TM3072-003"
 		;;
 	"dubian")

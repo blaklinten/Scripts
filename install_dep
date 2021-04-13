@@ -20,6 +20,7 @@ vim-gtk \
 xbacklight \
 xdotool \
 xinput \
+xmessage \
 xorg \
 xsel \
 xwallpaper \
