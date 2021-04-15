@@ -5,6 +5,7 @@
 case "$(uname -n)" in
 	"Lenny")
 		T_NAME="Synaptics TM3072-003"
+		TRACKPOINT_NAME="TPPS/2 IBM TrackPoint"
 		;;
 	"dubian")
 		T_NAME="AlpsPS/2 ALPS GlidePoint"	
@@ -19,10 +20,16 @@ State=$(xinput list-props "$T_NAME" | grep "Device Enabled" | tail -c 2)
 if [[ $State == "0" ]]
 then
 	xinput set-prop "$T_NAME" "Device Enabled" 1
+	if [ -n "$TRACKPOINT_NAME" ];then
+		xinput set-prop "$TRACKPOINT_NAME" "Device Enabled" 1
+	fi
 	pkill unclutter
 elif [[ $State == "1" ]]
 then
 	xinput set-prop "$T_NAME" "Device Enabled" 0
+	if [ -n "$TRACKPOINT_NAME" ];then
+		xinput set-prop "$TRACKPOINT_NAME" "Device Enabled" 0
+	fi
 	unclutter -idle 0 -jitter 10 -root &
 	# Find what screen(s) are present
 	INTERNAL_SCREEN=$(xrandr|grep "primary"|cut -d " " -f 1)
