@@ -32,158 +32,158 @@ while true; do
   if [ "$(cat $BATTERY/status)" = "Discharging" ]; then
     case $quota in
       "0")
-        BAT="[----------]"
+        BAT="{----------}"
         setName
-        BAT="[--------- ]"
+        BAT="{--------- }"
         setName
-        BAT="[--------  ]"
+        BAT="{--------  }"
         setName
-        BAT="[-------   ]"
+        BAT="{-------   }"
         setName
-        BAT="[------    ]"
+        BAT="{------    }"
         setName
-        BAT="[-----     ]"
+        BAT="{-----     }"
         setName
-        BAT="[----      ]"
+        BAT="{----      }"
         setName
-        BAT="[---       ]"
+        BAT="{---       }"
         setName
-        BAT="[--        ]"
+        BAT="{--        }"
         setName
-        BAT="[-         ]"
+        BAT="{-         }"
         setName
-        BAT="[          ]"
+        BAT="{          }"
         setName
       ;;
    
       "1")
-        BAT="[#---------]"
+        BAT="{#---------}"
         setName
-        BAT="[#-------- ]"
+        BAT="{#-------- }"
         setName
-        BAT="[#-------  ]"
+        BAT="{#-------  }"
         setName
-        BAT="[#------   ]"
+        BAT="{#------   }"
         setName
-        BAT="[#-----    ]"
+        BAT="{#-----    }"
         setName
-        BAT="[#----     ]"
+        BAT="{#----     }"
         setName
-        BAT="[#---      ]"
+        BAT="{#---      }"
         setName
-        BAT="[#--       ]"
+        BAT="{#--       }"
         setName
-        BAT="[#-        ]"
+        BAT="{#-        }"
         setName
-        BAT="[#         ]"
+        BAT="{#         }"
         setName
       ;;
       "2")
-        BAT="[##--------]"
+        BAT="{##--------}"
         setName
-        BAT="[##------- ]"
+        BAT="{##------- }"
         setName
-        BAT="[##------  ]"
+        BAT="{##------  }"
         setName
-        BAT="[##-----   ]"
+        BAT="{##-----   }"
         setName
-        BAT="[##----    ]"
+        BAT="{##----    }"
         setName
-        BAT="[##---     ]"
+        BAT="{##---     }"
         setName
-        BAT="[##--      ]"
+        BAT="{##--      }"
         setName
-        BAT="[##-       ]"
+        BAT="{##-       }"
         setName
-        BAT="[##        ]"
+        BAT="{##        }"
         setName
       ;;
       "3")
-        BAT="[###-------]"
+        BAT="{###-------}"
         setName
-        BAT="[###------ ]"
+        BAT="{###------ }"
         setName
-        BAT="[###-----  ]"
+        BAT="{###-----  }"
         setName
-        BAT="[###----   ]"
+        BAT="{###----   }"
         setName
-        BAT="[###---    ]"
+        BAT="{###---    }"
         setName
-        BAT="[###--     ]"
+        BAT="{###--     }"
         setName
-        BAT="[###-      ]"
+        BAT="{###-      }"
         setName
-        BAT="[###       ]"
+        BAT="{###       }"
         setName
       ;;
       "4")
-        BAT="[####------]"
+        BAT="{####------}"
         setName
-        BAT="[####----- ]"
+        BAT="{####----- }"
         setName
-        BAT="[####----  ]"
+        BAT="{####----  }"
         setName
-        BAT="[####---   ]"
+        BAT="{####---   }"
         setName
-        BAT="[####--    ]"
+        BAT="{####--    }"
         setName
-        BAT="[####-     ]"
+        BAT="{####-     }"
         setName
-        BAT="[####      ]"
+        BAT="{####      }"
         setName
       ;;
       "5")
-        BAT="[#####-----]"
+        BAT="{#####-----}"
         setName
-        BAT="[#####---- ]"
+        BAT="{#####---- }"
         setName
-        BAT="[#####---  ]"
+        BAT="{#####---  }"
         setName
-        BAT="[#####--   ]"
+        BAT="{#####--   }"
         setName
-        BAT="[#####-    ]"
+        BAT="{#####-    }"
         setName
-        BAT="[#####     ]"
+        BAT="{#####     }"
         setName
       ;;
       "6")
-        BAT="[######----]"
+        BAT="{######----}"
         setName
-        BAT="[######--- ]"
+        BAT="{######--- }"
         setName
-        BAT="[######--  ]"
+        BAT="{######--  }"
         setName
-        BAT="[######-   ]"
+        BAT="{######-   }"
         setName
-        BAT="[######    ]"
+        BAT="{######    }"
         setName
       ;;
       "7")
-        BAT="[#######---]"
+        BAT="{#######---}"
         setName
-        BAT="[#######-- ]"
+        BAT="{#######-- }"
         setName
-        BAT="[#######-  ]"
+        BAT="{#######-  }"
         setName
-        BAT="[#######   ]"
+        BAT="{#######   }"
         setName
       ;;
       "8")
-        BAT="[########--]"
+        BAT="{########--}"
         setName
-        BAT="[########- ]"
+        BAT="{########- }"
         setName
-        BAT="[########  ]"
+        BAT="{########  ]"
         setName
       ;;
       "9")
-        BAT="[#########-]"
+        BAT="{#########-}"
         setName
-        BAT="[######### ]"
+        BAT="{######### }"
         setName
       ;;
       "10")
-        BAT="[**********]"
+        BAT="{**********}"
         setName
       ;;
       *)
@@ -194,161 +194,161 @@ while true; do
   else
     case $quota in
       "0")
-        BAT="[          ]"
+        BAT="{          }"
         setName
-        BAT="[+         ]"
+        BAT="{+         }"
         setName
-        BAT="[++        ]"
+        BAT="{++        }"
         setName
-        BAT="[+++       ]"
+        BAT="{+++       }"
         setName
-        BAT="[++++      ]"
+        BAT="{++++      }"
         setName
-        BAT="[+++++     ]"
+        BAT="{+++++     }"
         setName
-        BAT="[++++++    ]"
+        BAT="{++++++    }"
         setName
-        BAT="[+++++++   ]"
+        BAT="{+++++++   }"
         setName
-        BAT="[++++++++  ]"
+        BAT="{++++++++  }"
         setName
-        BAT="[+++++++++ ]"
+        BAT="{+++++++++ }"
         setName
-        BAT="[++++++++++]"
+        BAT="{++++++++++}"
         setName
       ;;
       "1")
-        BAT="[#         ]"
+        BAT="{#         }"
         setName
-        BAT="[#+        ]"
+        BAT="{#+        }"
         setName
-        BAT="[#++       ]"
+        BAT="{#++       }"
         setName
-        BAT="[#+++      ]"
+        BAT="{#+++      }"
         setName
-        BAT="[#++++     ]"
+        BAT="{#++++     }"
         setName
-        BAT="[#+++++    ]"
+        BAT="{#+++++    }"
         setName
-        BAT="[#++++++   ]"
+        BAT="{#++++++   }"
         setName
-        BAT="[#+++++++  ]"
+        BAT="{#+++++++  }"
         setName
-        BAT="[#++++++++ ]"
+        BAT="{#++++++++ }"
         setName
-        BAT="[#+++++++++]"
+        BAT="{#+++++++++}"
         setName
       ;;
       "2")
-        BAT="[##        ]"
+        BAT="{##        }"
         setName
-        BAT="[##+       ]"
+        BAT="{##+       }"
         setName
-        BAT="[##++      ]"
+        BAT="{##++      }"
         setName
-        BAT="[##+++     ]"
+        BAT="{##+++     }"
         setName
-        BAT="[##++++    ]"
+        BAT="{##++++    }"
         setName
-        BAT="[##+++++   ]"
+        BAT="{##+++++   }"
         setName
-        BAT="[##++++++  ]"
+        BAT="{##++++++  }"
         setName
-        BAT="[##+++++++ ]"
+        BAT="{##+++++++ }"
         setName
-        BAT="[##++++++++]"
+        BAT="{##++++++++}"
         setName
       ;;
       "3")
-        BAT="[###       ]"
+        BAT="{###       }"
         setName
-        BAT="[###+      ]"
+        BAT="{###+      }"
         setName
-        BAT="[###++     ]"
+        BAT="{###++     }"
         setName
-        BAT="[###+++    ]"
+        BAT="{###+++    }"
         setName
-        BAT="[###++++   ]"
+        BAT="{###++++   }"
         setName
-        BAT="[###+++++  ]"
+        BAT="{###+++++  }"
         setName
-        BAT="[###++++++ ]"
+        BAT="{###++++++ }"
         setName
-        BAT="[###+++++++]"
+        BAT="{###+++++++}"
         setName
       ;;
       "4")
-        BAT="[####      ]"
+        BAT="{####      }"
         setName
-        BAT="[####+     ]"
+        BAT="{####+     }"
         setName
-        BAT="[####++    ]"
+        BAT="{####++    }"
         setName
-        BAT="[####+++   ]"
+        BAT="{####+++   }"
         setName
-        BAT="[####++++  ]"
+        BAT="{####++++  }"
         setName
-        BAT="[####+++++ ]"
+        BAT="{####+++++ }"
         setName
-        BAT="[####++++++]"
+        BAT="{####++++++}"
         setName
       ;;
       "5")
-        BAT="[#####     ]"
+        BAT="{#####     }"
         setName
-        BAT="[#####+    ]"
+        BAT="{#####+    }"
         setName
-        BAT="[#####++   ]"
+        BAT="{#####++   }"
         setName
-        BAT="[#####+++  ]"
+        BAT="{#####+++  }"
         setName
-        BAT="[#####++++ ]"
+        BAT="{#####++++ }"
         setName
-        BAT="[#####+++++]"
+        BAT="{#####+++++}"
         setName
       ;;
       "6")
-        BAT="[######    ]"
+        BAT="{######    }"
         setName
-        BAT="[######+   ]"
+        BAT="{######+   }"
         setName
-        BAT="[######++  ]"
+        BAT="{######++  }"
         setName
-        BAT="[######+++ ]"
+        BAT="{######+++ }"
         setName
-        BAT="[######++++]"
+        BAT="{######++++}"
         setName
       ;;
       "7")
-        BAT="[#######   ]"
+        BAT="{#######   }"
         setName
-        BAT="[#######+  ]"
+        BAT="{#######+  }"
         setName
-        BAT="[#######++ ]"
+        BAT="{#######++ }"
         setName
-        BAT="[#######+++]"
+        BAT="{#######+++}"
         setName
       ;;
       "8")
-        BAT="[########  ]"
+        BAT="{########  }"
         setName
-        BAT="[########+ ]"
+        BAT="{########+ }"
         setName
-        BAT="[########++]"
+        BAT="{########++}"
         setName
       ;;
       "9")
-        BAT="[######### ]"
+        BAT="{######### }"
         setName
-        BAT="[#########+]"
+        BAT="{#########+}"
         setName
       ;;
       "10")
-       	BAT="[**********]"
+       	BAT="{**********}"
        setName
       ;;
       *)
-        BAT="[FULLY CHARGED]"
+        BAT="{FULLY CHARGED}"
         setName
       ;;
     esac
