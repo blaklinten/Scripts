@@ -5,7 +5,7 @@ CWD="$PWD"
 
 # Go to Git dir to add, commit and push changes to remote
 cd "$GIT"
-for DIR in Backups Scripts; do
+for DIR in Backups Scripts Calcurse; do
     cd "$DIR"
     printf "===========********===========\nNow in dir: %s\n===========********===========\n" "$DIR"
     git diff
