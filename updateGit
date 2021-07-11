@@ -8,7 +8,7 @@ cd "$GIT"
 for DIR in Backups Scripts Calcurse "$HOME/.trackme"; do
     cd "$DIR"
     printf "===========********===========\nNow in dir: %s\n===========********===========\n" "$DIR"
-	[ "$DIR" = "$HOME/.trackme" ] && git add notes/
+	[ "$DIR" = "$HOME/.trackme" ] && git add calcurse-data/notes
     git diff
     git commit -am"Automated update"
     git fetch origin
