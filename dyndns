@@ -16,8 +16,6 @@ IP="$(curl -s ifconfig.me)"
 BASEURL="https://dyndns.egensajt.se/nic/update"
 PARAMS="hostname=$HOSTNAME&myip=$IP"
 
- curl -s --user $USERNAME:$PASSWORD $BASEURL?$PARAMS >> ~/.dyndns.log
-
 while true; do
 	sleep 5m;
 	printf '%s\n' "$(date)" >> ~/.dyndns.log
