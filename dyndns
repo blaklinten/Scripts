@@ -20,12 +20,12 @@ PARAMS="hostname=$HOSTNAME&myip=$IP"
 
 while true; do
 	sleep 5m;
+	printf '%s\n' "$(date)" >> ~/.dyndns.log
 	NEW_IP="$(curl -s  ifconfig.me)";
-	printf '%s\n%s%s\n%s%s\n' \
-		"$(date)" "Old IP: " "$IP" "New IP: " "$NEW_IP"  >> ~/.dyndns.log
 	if [ "$NEW_IP" != "$IP" ]; then
- curl -s --user $USERNAME:$PASSWORD $BASEURL?$PARAMS >> ~/.dyndns.log
-		printf '%s\n' "New IP! $NEW_IP" >> ~/.dyndns.log
+		printf '%s\n%s%s\n%s%s\n' \
+		"$(date)" "Old IP: " "$IP" "New IP: " "$NEW_IP"  >> ~/.dyndns.log
+		curl -s --user $USERNAME:$PASSWORD $BASEURL?$PARAMS >> ~/.dyndns.log
 		IP="$NEW_IP"
 	fi
 done
