@@ -16,7 +16,7 @@ while true; do
   	  WORKING="Not working atm..."
   fi
 
-  CONNECTED=$(nmcli connection show --active | tail -n1 | cut -f1 -d' ')
+  CONNECTED=$(nmcli connection show --active | sed -n '2'p | cut -f1 -d' ')
   if [ -z "$CONNECTED" ]; then
   	  CONNECTED="Offline"
   fi
