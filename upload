@@ -2,7 +2,7 @@
 
 if [ -n "$1" ]; then
   USER="pi"
-  SERVER="centaurea-cyanus.se"
+  SERVER="blaklinten.xyz"
   PORT="6640"
   DEST_PATH="/home/pi/files/"
   DEST="$USER@$SERVER:$DEST_PATH"
