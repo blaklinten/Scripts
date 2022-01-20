@@ -1,0 +1,69 @@
+#!/bin/sh
+
+TRUE="0"
+FALSE="1"
+
+mount_boot()
+{
+    doas mount /boot
+}
+
+upgrade_system()
+{
+    doas pacman -Syu
+}
+
+unmount_boot()
+{
+    doas umount /boot
+}
+
+is_boot_mounted()
+{
+    BOOT_MOUNTPOINT="$(mount | grep 'boot')"
+    [ -n "$BOOT_MOUNTPOINT" ] && return "$TRUE" || return "$FALSE"
+}
+
+usb_is_present()
+{
+    UUID="$(grep 'boot' /etc/fstab | cut -d' ' -f1 | cut -d'=' -f2)"
+    for device in $(lsblk -o UUID); do
+        [ "$device" = "$UUID" ] && return "$TRUE" 
+    done
+    return "$FALSE"
+}
+
+try_mount_boot()
+{
+    usb_is_present
+    [ "$?" = "$TRUE" ] && {
+        echo "Mounting..."
+        mount_boot
+    } || {
+        echo "Correct USB drive not present -- Please insert boot USB drive and try again"
+        return "$FALSE"
+    }
+}
+
+error()
+{
+    echo "Something went wrong :("
+}
+
+system_update ()
+{
+    is_boot_mounted
+    [ "$?" = "$TRUE" ] && {
+        echo "/boot is mounted, starting system upgrade..."
+        upgrade_system
+        [ "$?" = "$FALSE" ] && error
+        unmount_boot
+    } || {
+        echo "/boot is not mounted, trying to fix..."
+        try_mount_boot
+        [ "$?" = "$FALSE" ] && error || system_update
+    }
+}
+
+# Run main
+system_update
