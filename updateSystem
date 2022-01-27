@@ -16,6 +16,7 @@ upgrade_system()
 unmount_boot()
 {
     doas umount /boot
+    lsblk
 }
 
 is_boot_mounted()
