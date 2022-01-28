@@ -1,0 +1,31 @@
+#!/bin/sh
+Type="$1"
+Ans="$(sed -n 'n;p;' ~/.bookmarks | dmenu -i)"
+
+if [ "$Ans" = "Private" ]; then
+    Type="private-window"
+    Ans="$(sed -n 'n;p;' ~/.bookmarks | sed -n '/Private/!p' | sed -n '/AddBookmark/!p' |  dmenu -i)"
+fi
+
+if [ "$Ans" = "AddBookmark" ]; then
+    Name="$(echo "Input name of bookmark" | dmenu)"
+    if [ -n "$Name" ]; then
+        URL="$(echo "Input URL of bookmark" | dmenu)"
+        if [ -n "$URL" ]; then
+            printf '%s\n%s\n' "$Name" "$URL" >> ~/.bookmarks
+        fi
+    fi
+    exit
+elif [ "$Ans" = "Search" ]; then
+    Search="$(echo "Input search phrase" | dmenu | sed 's/ /+/g')"
+    if [ -n "$Search" ]; then
+       exec qutebrowser --target "$Type" "https://www.duckduckgo.com/?q=$Search"
+   fi
+elif [ -n  "$Ans" ]; then
+    URL="$(sed -n "/^$Ans$/ {n;p;}" ~/.bookmarks)"
+    if [ -n "$URL" ]; then
+       exec qutebrowser --target "$Type" "$URL"
+   else
+       exec qutebrowser --target "$Type" "$Ans"
+   fi
+fi
