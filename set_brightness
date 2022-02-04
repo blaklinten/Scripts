@@ -1,0 +1,11 @@
+#!/bin/sh
+
+NEW_BRIGHTNESS="$1"
+BACKLIGHT_PATH="/sys/class/backlight"
+
+[ -d  "${BACKLIGHT_PATH}/intel_backlight" ] && BACKLIGHT_PROP="intel_backlight"
+[ -d  "${BACKLIGHT_PATH}/nv_backlight" ] && BACKLIGHT_PROP="nv_backlight"
+
+BACKLIGHT_BRIGHTNESS_PATH="/sys/class/backlight/${BACKLIGHT_PROP}/brightness"
+
+sudo sh -c "echo ${NEW_BRIGHTNESS} > ${BACKLIGHT_BRIGHTNESS_PATH}"
