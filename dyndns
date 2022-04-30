@@ -5,6 +5,7 @@ N=$(ps -e | grep dyndns | wc -l)
 
 # -gt "2" since subshell gives spwn to one more instance of dyndns process?
 if [ "$N" -gt "2" ]; then
+    echo "dynsdns already running, no need for me..."
 	exit
 fi
 
@@ -12,18 +13,23 @@ USERNAME="XXX@mail.com"
 HOSTNAME="site@domain.com"
 PASSWORD="XXX"
 
-IP="$(curl -s ifconfig.me)"
+IP="$(host $HOSTNAME | cut -d' ' -f4)"
+echo "Initial IP: $IP"
 BASEURL="https://dyndns.egensajt.se/nic/update"
-PARAMS="hostname=$HOSTNAME&myip=$IP"
+PARAMS="hostname=$HOSTNAME&myip="
 
+echo "Going into main loop..."
 while true; do
-	sleep 5m;
 	printf '%s\n' "$(date)" >> ~/.dyndns.log
 	NEW_IP="$(curl -s  ifconfig.me)";
+    echo "New IP: $NEW_IP"
 	if [ "$NEW_IP" != "$IP" ]; then
+        PARAMS="${PARAMS}$NEW_IP"
 		printf '%s\n%s%s\n%s%s\n' \
 		"$(date)" "Old IP: " "$IP" "New IP: " "$NEW_IP"  >> ~/.dyndns.log
+        echo "Trying to update DNS records..."
 		curl -s --user $USERNAME:$PASSWORD $BASEURL?$PARAMS >> ~/.dyndns.log
 		IP="$NEW_IP"
 	fi
+	sleep 5s;
 done
