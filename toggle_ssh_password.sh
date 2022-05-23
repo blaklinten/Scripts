@@ -1,7 +1,5 @@
 #/bin/sh
 
-[ "$UID" != "0" ] && echo "Must be run as root(uid=0)" && exit
-
 SSH_CONFIG="sshd_config"
 
 enable_unsafe_password_authenctication()
