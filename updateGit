@@ -1,19 +1,16 @@
 #!/bin/sh
 
+# **Absolut paths** to Git-directories to be updated
 GIT="$HOME/Git"
-CWD="$PWD"
+TRACKME="$HOME/.trackme"
 
 # Go to Git dir to add, commit and push changes to remote
-cd "$GIT"
-for DIR in Backups Scripts "$HOME/.trackme"; do
+for DIR in "$GIT/Backups" "$GIT/Scripts" "$TRACKME"; do
     cd "$DIR"
     printf "===========********===========\nNow in dir: %s\n===========********===========\n" "$DIR"
-	[ "$DIR" = "Calcurse" ] && git add calcurse-data/notes
     git diff
     git commit -am"Automated update"
     git fetch origin
     git rebase origin/master
     git push
-    cd "$GIT"
 done
-cd "$CWD"
