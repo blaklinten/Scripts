@@ -22,14 +22,22 @@ unmount_boot()
 is_boot_mounted()
 {
     BOOT_MOUNTPOINT="$(mount | grep 'boot')"
-    [ -n "$BOOT_MOUNTPOINT" ] && return "$TRUE" || return "$FALSE"
+
+    if [ -n "$BOOT_MOUNTPOINT" ]; then
+        return "$TRUE"
+    fi
+
+    return "$FALSE"
 }
 
 usb_is_present()
 {
     UUID="$(grep 'boot' /etc/fstab | cut -d' ' -f1 | cut -d'=' -f2)"
+
     for device in $(lsblk -o UUID); do
-        [ "$device" = "$UUID" ] && return "$TRUE" 
+        if [ "$device" = "$UUID" ]; then
+            return "$TRUE" 
+        fi
     done
     return "$FALSE"
 }
@@ -37,13 +45,13 @@ usb_is_present()
 try_mount_boot()
 {
     usb_is_present
-    [ "$?" = "$TRUE" ] && {
+    if [ "$?" = "$TRUE" ]; then
         echo "Mounting..."
         mount_boot
-    } || {
+    else
         echo "Correct USB drive not present -- Please insert boot USB drive and try again"
         return "$FALSE"
-    }
+    fi
 }
 
 error()
@@ -54,16 +62,23 @@ error()
 system_update ()
 {
     is_boot_mounted
-    [ "$?" = "$TRUE" ] && {
+
+    if [ "$?" = "$TRUE" ]; then 
         echo "/boot is mounted, starting system upgrade..."
         upgrade_system
-        [ "$?" = "$FALSE" ] && error
+        if [ "$?" = "$FALSE" ]; then
+            error
+        fi
         unmount_boot
-    } || {
+    else
         echo "/boot is not mounted, trying to fix..."
         try_mount_boot
-        [ "$?" = "$FALSE" ] && error || system_update
-    }
+        if [ "$?" = "$FALSE" ]; then 
+            error
+        else
+            system_update
+        fi
+    fi
 }
 
 # Run main
