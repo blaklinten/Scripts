@@ -1,10 +1,11 @@
 #!/bin/sh
 
 if [ -n "$1" ]; then
-  USER="pi"
-  SERVER="blaklinten.xyz"
-  PORT="6640"
-  DEST_PATH="/home/pi/files/"
+  #Set by env
+  #USER=""
+  #SERVER=""
+  #PORT=""
+  #DEST_PATH=""
   DEST="$USER@$SERVER:$DEST_PATH"
   URL="https://$SERVER/files/"
   SOURCE="$(readlink -f "$1")"

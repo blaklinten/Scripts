@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#Environment variables for my scripts
+
+# upload
+USER=""
+SERVER=""
+PORT=""
+DEST_PATH=""
+
+# dyndns
+USERNAME=""
+HOSTNAME=""
+PASSWORD=""
+BASEURL=""

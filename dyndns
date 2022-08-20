@@ -5,17 +5,18 @@ N=$(ps -e | grep dyndns | wc -l)
 
 # -gt "2" since subshell gives spwn to one more instance of dyndns process?
 if [ "$N" -gt "2" ]; then
-    echo "dynsdns already running, no need for me..."
+    echo "dyndns already running, no need for me..."
 	exit
 fi
 
-USERNAME="XXX@mail.com"
-HOSTNAME="site@domain.com"
-PASSWORD="XXX"
+#Set by env
+#USERNAME=""
+#HOSTNAME=""
+#PASSWORD=""
+#BASEURL=""
 
 IP="$(host $HOSTNAME | cut -d' ' -f4)"
 echo "Initial IP: $IP"
-BASEURL="https://dyndns.egensajt.se/nic/update"
 PARAMS="hostname=$HOSTNAME&myip="
 
 echo "Going into main loop..."
