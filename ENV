@@ -3,13 +3,13 @@
 #Environment variables for my scripts
 
 # upload
-USER=""
-SERVER=""
-PORT=""
-DEST_PATH=""
+UPLOAD_USER=""
+UPLOAD_SERVER=""
+UPLOAD_PORT=""
+UPLOAD_DEST_PATH=""
 
 # dyndns
-USERNAME=""
-HOSTNAME=""
-PASSWORD=""
-BASEURL=""
+DYNDNS_USERNAME=""
+DYNDNS_HOSTNAME=""
+DYNDNS_PASSWORD=""
+DYNDNS_BASEURL=""
