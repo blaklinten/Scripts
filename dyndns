@@ -10,14 +10,14 @@ if [ "$N" -gt "2" ]; then
 fi
 
 #Set by env
-#USERNAME=""
-#HOSTNAME=""
-#PASSWORD=""
-#BASEURL=""
+#DYNDNS_USERNAME=""
+#DYNDNS_HOSTNAME=""
+#DYNDNS_PASSWORD=""
+#DYNDNS_BASEURL=""
 
-IP="$(host $HOSTNAME | cut -d' ' -f4)"
+IP="$(host $DYNDNS_HOSTNAME | cut -d' ' -f4)"
 echo "Initial IP: $IP"
-PARAMS="hostname=$HOSTNAME&myip="
+PARAMS="hostname=$DYNDNS_HOSTNAME&myip="
 
 echo "Going into main loop..."
 while true; do
@@ -29,7 +29,7 @@ while true; do
 		printf '%s\n%s%s\n%s%s\n' \
 		"$(date)" "Old IP: " "$IP" "New IP: " "$NEW_IP"  >> ~/.dyndns.log
         echo "Trying to update DNS records..."
-		curl -s --user $USERNAME:$PASSWORD $BASEURL?$PARAMS >> ~/.dyndns.log
+		curl -s --user $DYNDNS_USERNAME:$DYNDNS_PASSWORD $DYNDNS_BASEURL?$PARAMS >> ~/.dyndns.log
 		IP="$NEW_IP"
 	fi
 	sleep 5s;

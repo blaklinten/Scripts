@@ -2,15 +2,15 @@
 
 if [ -n "$1" ]; then
   #Set by env
-  #USER=""
+  #UPLOAD_USER=""
   #SERVER=""
   #PORT=""
   #DEST_PATH=""
-  DEST="$USER@$SERVER:$DEST_PATH"
-  URL="https://$SERVER/files/"
+  DEST="$UPLOAD_USER@$UPLOAD_SERVER:$UPLOAD_DEST_PATH"
+  URL="https://$UPLOAD_SERVER/files/"
   SOURCE="$(readlink -f "$1")"
 
-  rsync -a --chmod=u+rw,g=r,o=r -e "ssh -p $PORT" "$SOURCE" "$DEST"
+  rsync -a --chmod=u+rw,g=r,o=r -e "ssh -p $UPLOAD_PORT" "$SOURCE" "$DEST"
   printf "$URL%s\n" "${SOURCE##*/}"
 else
 	printf "%s\n" "Give one (1) argument!"

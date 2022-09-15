@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 
 SSH_CONFIG="sshd_config"
 
@@ -22,7 +22,7 @@ restart_sshd()
 	systemctl restart sshd
 }
 
-cd /etc/ssh/
+cd /etc/ssh/ || exit
 
 case "$1" in
 	"on")
@@ -39,4 +39,4 @@ case "$1" in
 		echo "Usage: toggle_ssh_password.sh [on,off]"
 esac
 
-cd
+cd || exit

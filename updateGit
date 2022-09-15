@@ -6,7 +6,7 @@ TRACKME="$HOME/.trackme"
 
 # Go to Git dir to add, commit and push changes to remote
 for DIR in "$GIT/Backups" "$GIT/Scripts" "$TRACKME"; do
-    cd "$DIR"
+    cd "$DIR" || exit
     printf "===========********===========\nNow in dir: %s\n===========********===========\n" "$DIR"
     git diff
     git commit -am"Automated update"
