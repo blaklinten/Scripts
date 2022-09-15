@@ -1,3 +1,9 @@
 #!/bin/sh
 
-cvlc http://relay.slayradio.org:8000/
+for RELAY in 234 "" 1 2 3; do
+    if [ $(curl -w1 "http://relay$RELAY.slayradio.org:8000/") ]; then
+        echo "Connecting to [http://relay$RELAY.slayradio.org:8000/]..."
+        cvlc http://relay$RELAY.slayradio.org:8000/
+        exit
+    fi
+done
