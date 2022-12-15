@@ -1,14 +1,11 @@
 #!/bin/sh
 
-TRUE="0"
-FALSE="1"
-
 mount_boot()
 {
     doas mount /boot
 }
 
-upgrade_system()
+update_system()
 {
     doas pacman -Syu
 }
@@ -17,6 +14,12 @@ unmount_boot()
 {
     doas umount /boot
     lsblk
+
+    BOOT="$(ls /boot)"
+    if [ -n "$BOOT" ]; then
+      error
+      printf 'Boot contains %s, should be empty!\n' "$BOOT"
+    fi
 }
 
 is_boot_mounted()
@@ -24,10 +27,10 @@ is_boot_mounted()
     BOOT_MOUNTPOINT="$(mount | grep 'boot')"
 
     if [ -n "$BOOT_MOUNTPOINT" ]; then
-        return "$TRUE"
+        return 0
     fi
 
-    return "$FALSE"
+    return 1
 }
 
 usb_is_present()
@@ -36,21 +39,21 @@ usb_is_present()
 
     for device in $(lsblk -o UUID); do
         if [ "$device" = "$UUID" ]; then
-            return "$TRUE" 
+            return 0
         fi
     done
-    return "$FALSE"
+    return 1
 }
 
 try_mount_boot()
 {
-    usb_is_present
-    if [ "$?" = "$TRUE" ]; then
+    
+    if usb_is_present; then
         echo "Mounting..."
         mount_boot
     else
         echo "Correct USB drive not present -- Please insert boot USB drive and try again"
-        return "$FALSE"
+        return 1
     fi
 }
 
@@ -61,22 +64,24 @@ error()
 
 system_update ()
 {
-    is_boot_mounted
+    
 
-    if [ "$?" = "$TRUE" ]; then 
+    if is_boot_mounted; then 
         echo "/boot is mounted, starting system upgrade..."
-        upgrade_system
-        if [ "$?" = "$FALSE" ]; then
+        
+        if update_system; then
+            unmount_boot
+        else
+            unmount_boot
             error
         fi
-        unmount_boot
     else
         echo "/boot is not mounted, trying to fix..."
-        try_mount_boot
-        if [ "$?" = "$FALSE" ]; then 
-            error
-        else
+        
+        if try_mount_boot; then 
             system_update
+        else
+            error
         fi
     fi
 }
