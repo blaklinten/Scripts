@@ -1,21 +1,32 @@
 #!/bin/bash
 
 # A script that shuffles all songs in a directory
-IFS=$'\n'
 
-for SONG in $(find $@ -type f); do
-        let "SONGS=$SONGS + 1";
-done
+trap "pkill mpv; pkill shuffle; exit;" SIGINT 
+SONGS="$(find "$1" -type f | wc -l)"
+CONTINUE=1
+
+while [ -n "$CONTINUE" ]; do
+  ((NEXT_SONG = RANDOM % SONGS + 1))
+  SONG="$(find "$1" -type f | sed -n ${NEXT_SONG}p)"
+  echo "Playing $SONG"
+  mpv "$SONG" 2&> /dev/null
+done &
 
 while true; do
-    let "PLAYING = $RANDOM % $SONGS + 1"
-    CURRENT=0
-    for SONG in $(find $@ -type f); do
-            let "CURRENT = $CURRENT + 1"
-            if [[ $CURRENT == $PLAYING ]]; then
-                mpv $SONG
-                break
-            fi
-    done
+  read -r -n1 -s
+  case "$REPLY" in
+    "n")
+      pkill mpv
+      continue
+      ;;
+    "q")
+      unset CONTINUE
+      pkill mpv 
+      pkill shuffle
+      exit
+      ;;
+    *)
+      wait
+  esac
 done
-
