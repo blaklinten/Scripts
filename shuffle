@@ -3,12 +3,10 @@
 # A script that shuffles all songs in a directory
 
 trap "pkill mpv; pkill shuffle; exit;" SIGINT 
-SONGS="$(find "$1" -type f | wc -l)"
 CONTINUE=1
 
 while [ -n "$CONTINUE" ]; do
-  ((NEXT_SONG = RANDOM % SONGS + 1))
-  SONG="$(find "$1" -type f | sed -n ${NEXT_SONG}p)"
+  SONG="$(find "$1" -type f | shuf | head -n1)"
   echo "Playing $SONG"
   mpv "$SONG" 2&> /dev/null
 done &
