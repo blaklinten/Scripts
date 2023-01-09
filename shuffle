@@ -25,6 +25,7 @@ while true; do
       exit
       ;;
     *)
-      wait
+      continue
+      ;;
   esac
 done
