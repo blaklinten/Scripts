@@ -4,10 +4,6 @@
 
 PIC_DIR=~/Pic/wallpapers/
 
-NUM=$(find $PIC_DIR -type f | wc -l)
-RANDOM=$(od -An -N2 -l /dev/random)
-NEW=$((RANDOM % NUM + 1))
+PIC=$(find $PIC_DIR -type f | shuf | head -n1)
 
-PIC=$(find $PIC_DIR -type f | sed -n ${NEW}p)
-
-xwallpaper --zoom $PIC
+xwallpaper --zoom "$PIC"
