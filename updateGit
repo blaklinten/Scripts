@@ -2,10 +2,9 @@
 
 # **Absolut paths** to Git-directories to be updated
 GIT="$HOME/Git"
-TRACKME="$HOME/.trackme"
 
 # Go to Git dir to add, commit and push changes to remote
-for DIR in "$GIT/Backups" "$GIT/Scripts" "$TRACKME"; do
+for DIR in "$GIT/Backups" "$GIT/Scripts" "$HOME/.trackme"; do
     cd "$DIR" || exit
     printf "===========********===========\nNow in dir: %s\n===========********===========\n" "$DIR"
     git diff
