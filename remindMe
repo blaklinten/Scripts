@@ -32,6 +32,9 @@ echo "-------------------"
 while true; do
     if [ "$(date +%s)" -ge "$STOP_TIME" ]; then
         xmessage $WHAT -center
+        while true; do
+          spd-say "Remember $WHAT"
+        done
         break
     fi
     sleep 30s
