@@ -4,38 +4,39 @@ if [ -z "$*" ]; then
 
 # Set a remider for a specified time.
 	echo "What shall I remind you about?"
-	read WHAT
+	read -r WHAT
 	echo "Ok, when shall I remind you?"
-	read STOP_TIME
+	read -r STOP_TIME
 else
 	WHAT="$1"
 	STOP_TIME="$2"
 fi
 
 # Verify date
-if [ $(echo $STOP_TIME | head -c 1) = "+" ]; then
-    NOW=$(date +%s)
-    DIFF=$(expr $(echo $STOP_TIME | sed s/+//) \* 60)
-    STOP_TIME=$(expr $NOW + $DIFF)
+if [ "$(head -c 1<<<"$STOP_TIME")" = "+" ]; then
+  DURATION="${STOP_TIME/+/}"
+  NOW="$(date +%s)"
+  DIFF="$((DURATION * 60))"
+  STOP_TIME_SEC=$((NOW + DIFF))
 else
-    STOP_TIME=$(date -d $STOP_TIME +%s)
+  STOP_TIME_SEC=$(date -d "$STOP_TIME" +%s)
 fi
-DATE="$(date --date=@$STOP_TIME)"
+DATE="$(date --date=@"$STOP_TIME_SEC")"
 
 echo "-------------------"
 echo "Will remind you on:"
-echo $DATE
+echo "$DATE"
 echo "about $WHAT"
 echo "-------------------"
 
 # Check regulary if now is the time
 while true; do
-    if [ "$(date +%s)" -ge "$STOP_TIME" ]; then
-        xmessage $WHAT -center
         while true; do
           spd-say "Remember $WHAT"
         done
-        break
-    fi
-    sleep 30s
+  if [ "$(date +%s)" -ge "$STOP_TIME" ]; then
+    xmessage $WHAT -center
+    break
+  fi
+  sleep 30s
 done
