@@ -1,14 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 
 # A small timer script
 
 COUNT=0
 
 while true; do
-	SECONDS=$((COUNT % 60))
-	MINUTES=$((COUNT / 60 % 60))
-	HOURS=$((COUNT / 3600))
-	echo $HOURS:$MINUTES:$SECONDS;
-	COUNT=$((COUNT + 1))
-	sleep 1s;
+  CURRENT_SECONDS="$((COUNT % 60))"
+  CURRENT_MINUTES="$((COUNT / 60 % 60))"
+  CURRENT_HOURS="$((COUNT / 3600))"
+  printf '\r\e[0K%s' "$CURRENT_HOURS:$CURRENT_MINUTES:$CURRENT_SECONDS"
+  COUNT=$((COUNT + 1))
+  sleep 1s
 done
