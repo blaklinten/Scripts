@@ -31,9 +31,6 @@ echo "-------------------"
 
 # Check regulary if now is the time
 while true; do
-        while true; do
-          spd-say "Remember $WHAT"
-        done
   if [ "$(date +%s)" -ge "$STOP_TIME" ]; then
     xmessage $WHAT -center
     break
