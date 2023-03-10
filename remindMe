@@ -13,7 +13,7 @@ else
 fi
 
 # Verify date
-if [ "$(head -c 1<<<"$STOP_TIME")" = "+" ]; then
+if [ "$(head -c1 <<<"$STOP_TIME")" = "+" ]; then
   DURATION="${STOP_TIME/+/}"
   NOW="$(date +%s)"
   DIFF="$((DURATION * 60))"
@@ -31,9 +31,9 @@ echo "-------------------"
 
 # Check regulary if now is the time
 while true; do
-  if [ "$(date +%s)" -ge "$STOP_TIME" ]; then
-    xmessage $WHAT -center
+  if [ "$(date +%s)" -ge "$STOP_TIME_SEC" ]; then
+    xmessage "$WHAT" -center
     break
   fi
   sleep 30s
-done
+done &
