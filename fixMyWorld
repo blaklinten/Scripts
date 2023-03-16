@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# Fix my world
-
-~/.fehbg
-xinput set-prop "AlpsPS/2 ALPS GlidePoint" 152 0
-xbacklight -set 20
-unclutter -idle 0.1 -root

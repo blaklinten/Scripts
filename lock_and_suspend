@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# This script locks and suspends the machine
-
-~/.scripts/./lock
-systemctl suspend
