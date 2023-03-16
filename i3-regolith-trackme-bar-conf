@@ -1,0 +1,6 @@
+# trackme
+#
+# Display what I'm doing at the moment
+
+[trackme]
+interval=5

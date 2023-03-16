@@ -1,0 +1,44 @@
+#!/bin/bash
+
+LABEL_COLOR=${label_color:-$(xrescat i3xrocks.label.color "#7B8394")}
+VALUE_FONT=${font:-$(xrescat i3xrocks.value.font "Source Code Pro Medium 13")}
+VALUE_COLOR=$(xrescat i3xrocks.label.color white)
+BUTTON=${button:-}
+
+ACTIVE="$HOME/.trackme/active"
+
+diff()
+{
+  if [ "$1" -gt "$2" ]; then
+    echo "diff would be negative, this is not allowed! Wrong order of parameters?"
+    return 1
+  fi
+
+  ((DIFF = $2 - $1))
+  ((SECONDS = DIFF % 60))
+  ((MINUTES = (DIFF % 3600) / 60))
+  ((HOURS = DIFF / 3600))
+
+	echo "$HOURS:$MINUTES:$SECONDS"
+}
+
+if [ -f "$ACTIVE" ];then
+  ACTIVITY="$(sed -n 2p "$ACTIVE" | tr -d '&')"
+  DURATION="$(sed -n 4p "$ACTIVE")"
+  INFO_LINE="Working at $ACTIVITY for $(diff "$DURATION" "$(date +%s)")"
+  LABEL_ICON="☻"
+else
+  INFO_LINE="Not working at the moment..."
+  LABEL_ICON="✗"
+fi
+
+
+ICON_SPAN="<span font_desc=\"${VALUE_FONT}\" color=\"${LABEL_COLOR}\">$LABEL_ICON</span>"
+VALUE_SPAN="<span font_desc=\"${VALUE_FONT}\" color=\"${VALUE_COLOR}\">$INFO_LINE</span>"
+
+echo "${ICON_SPAN}${VALUE_SPAN}${ICON_SPAN}"
+
+if [[ "${BUTTON}" == "1" ]]; then
+    ACTION=$(xrescat i3xrocks.action.trackme "/usr/local/bin/trackme")
+    /usr/bin/i3-msg -q exec "$ACTION"
+fi
