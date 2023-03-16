@@ -3,15 +3,6 @@
 # This script allows me to search for a string in all files 
 # in current directory
 
-echo "What do you want to search for?"
-read "SEARCHSTRING"
-echo "Searching for $SEARCHSTRING in $PWD/*..."
+STRING_TO_LOOK_FOR="$1"
 
-for file in $(find . -type f); do
-    if [[ $(cat $file | grep -i $SEARCHSTRING) ]]; then
-        echo $file
-        echo $(cat $file | grep -i $SEARCHSTRING)
-    fi
-done
-echo "Done."
-
+grep -ir "$STRING_TO_LOOK_FOR" .

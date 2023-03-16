@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# This locks the device and changes background
-
-i3lock -i $(~/.scripts/random_background png)
