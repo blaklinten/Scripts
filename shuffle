@@ -3,17 +3,16 @@
 # A script that shuffles all songs in a directory
 
 trap "pkill mpv; pkill shuffle; exit;" SIGINT 
-CONTINUE=1
+
 DIR_TO_PLAY="$1"
+
+SONG=""
 
 stop_looping()
 {
-  unset CONTINUE
-  if [ -n "$CURRENT_MPV_LOOP" ];then
-    echo Killing PID: $CURRENT_MPV_LOOP
-    kill "$CURRENT_MPV_LOOP"
-  else
-    echo Current bg PID id empty...
+  if [ -e CURRENT_MPV_LOOP ];then
+    kill "$(cat CURRENT_MPV_LOOP)"
+    rm CURRENT_MPV_LOOP
   fi
 }
 
@@ -24,39 +23,55 @@ stop_playing()
 
 play_random_song()
 {
-  SONG="$(find "$DIR_TO_PLAY" -type f | shuf -n1)"
-  echo "Playing random $SONG"
+  if [ -d "$DIR_TO_PLAY" ];then
+    SONG="$(find "$DIR_TO_PLAY" -type f | shuf -n1)"
+  elif [ "$DIR_TO_PLAY" = "fav" ];then
+    SONG="$(shuf -n1 ~/.shuffle_favorites)"
+  fi
+  echo "Playing song $SONG"
   mpv "$SONG" 2&> /dev/null
 }
 
 random_loop()
 {
-  # Allow for more looping
-  CONTINUE=1
-  while [ -n "$CONTINUE" ]; do
-    play_random_song
-  done &
+  if [ ! -e CURRENT_MPV_LOOP ]; then
+    touch CURRENT_MPV_LOOP
+    while [ -e CURRENT_MPV_LOOP ]; do
+      play_random_song
+    done &
+    echo "$!" > CURRENT_MPV_LOOP
+  fi
 }
 
 choose_song()
 {
-  SONG="$(find "$DIR_TO_PLAY" -type f | dmenu -i -p "Choose a song to play:" -l 30)"
-  #Stop looping
+  if [ -d "$DIR_TO_PLAY" ];then
+    SONG="$(find "$DIR_TO_PLAY" -type f | dmenu -i -p "Choose a song to play:" -l 30)"
+  elif [ "$DIR_TO_PLAY" = "fav" ];then
+    SONG="$(cat ~/.shuffle_favorites | dmenu -i -p "Choose a song to play:" -l 30)"
+  fi
   stop_looping
-  #Stop playing
   stop_playing
-  echo "Playing chosen $SONG"
   {
+    echo "Playing song $SONG"
     mpv "$SONG" 2&> /dev/null
     random_loop
-    echo Playing random song... PID: $!
-    CURRENT_MPV_LOOP="$!"
   } &
 }
 
+add_favorite()
+{
+  echo "Adding current song $SONG to favorites!"
+  echo "$SONG" >> ~/.shuffle_favorites
+}
+
+if [ -e CURRENT_MPV_LOOP ];then
+  echo "Cleaning up after last session. Did it crash?"
+  rm -v CURRENT_MPV_LOOP
+fi
+
 echo "Choose a song to play (c) or play a random one (p)."
 while true; do
-  echo "Script PID id $$"
   read -r -n1 -s
   case "$REPLY" in
     "c")
@@ -66,11 +81,15 @@ while true; do
       random_loop
       ;;
     "n")
-      pkill mpv
+      stop_playing
+      ;;
+    "f")
+      add_favorite
       ;;
     "q")
-      unset CONTINUE
       stop_looping
+      stop_playing
+      pkill shuffle
       exit
       ;;
     *)
