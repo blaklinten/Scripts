@@ -5,7 +5,7 @@ GIT="$HOME/Git"
 
 # Go to Git dir to add, commit and push changes to remote
 for DIR in "$GIT/Backups" "$GIT/Scripts" "$HOME/.trackme" "$HOME/.password-store"; do
-    cd "$DIR" || exit
+    cd "$DIR" || continue
     printf "===========********===========\nNow in dir: %s\n===========********===========\n" "$DIR"
     git diff
     git commit -am"Automated update"
