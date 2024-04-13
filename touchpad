@@ -4,8 +4,8 @@
 T_NAME="Synaptics TM3072-003"
 TRACKPOINT_NAME="TPPS/2 IBM TrackPoint"
 
-xinput --set-prop "$T_NAME" "Synaptics Tap Action" 0 0 0 0 1 2 3 #Enable Tapping
-xinput --set-prop "$T_NAME" "Synaptics Scrolling Distance" -44 44 #Enable natural scrolling
+xinput --set-prop "$T_NAME" "libinput Tapping Enabled" 1 #Enable Tapping
+xinput --set-prop "$T_NAME" "libinput Natural Scrolling Enabled" 1 #Enable natural scrolling
 
 State=$(xinput list-props "$T_NAME" | grep "Device Enabled" | tail -c2)
 
