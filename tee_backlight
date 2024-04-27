@@ -1,0 +1,19 @@
+#!/bin/bash
+
+BRIGHTNESS_FILE="/sys/class/backlight/intel_backlight/brightness"
+
+CURRENT_BRIGHTNESS="$(\cat "$BRIGHTNESS_FILE")"
+
+if [ "$1" != "+" -a "$1" != "-" ];then
+  echo "Operation can be etither + or - "
+  exit
+fi
+
+if [ -z "$2" ]; then
+  echo "Numerical vaalue must be given"
+  exit
+fi
+
+((NEW_BRIGHTNESS = $CURRENT_BRIGHTNESS $1 $2))
+
+echo "$NEW_BRIGHTNESS" | sudo tee "$BRIGHTNESS_FILE" >> /dev/null
