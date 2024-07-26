@@ -3,9 +3,9 @@
 if [ -n "$1" ]; then
   #Set by env
   #UPLOAD_USER=""
-  #SERVER=""
-  #PORT=""
-  #DEST_PATH=""
+  #UPLOAD_SERVER=""
+  #UPLOAD_PORT=""
+  #UPLOAD_DEST_PATH=""
   DEST="$UPLOAD_USER@$UPLOAD_SERVER:$UPLOAD_DEST_PATH"
   URL="https://$UPLOAD_SERVER/files/"
   SOURCE="$(readlink -f "$1")"
