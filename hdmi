@@ -1,21 +1,26 @@
 #!/bin/bash
+
 # Find what screen(s) are present
 INTERNAL_SCREEN="$(xrandr|grep "primary"|cut -d " " -f 1)"
 EXTERNAL_SCREEN="$(xrandr|grep " connected"|grep -v "primary"|cut -d " " -f 1)"
 
 hdmi() {
-xrandr --output "$INTERNAL_SCREEN" "$1" "$3" "$4" --output "$EXTERNAL_SCREEN" "$2" 
+if [ -n "$2" ]; then
+  xrandr --output "$INTERNAL_SCREEN" "$1" --output "$EXTERNAL_SCREEN" "$2" 
+else
+  xrandr --output "$INTERNAL_SCREEN" --auto --below "$EXTERNAL_SCREEN" --output "$EXTERNAL_SCREEN" --auto 
+fi
 random_background
 }
 
 usage()
 {
-  printf "Usage: %s [on | off | both]" "${FUNCNAME[0]}"
+  printf "Usage: %s [on | off | both]\n" "${FUNCNAME[0]}"
 }
 
 case $1 in 
   "on") hdmi --off --auto ;;
   "off") hdmi --auto --off ;; 
-  "both") hdmi --auto --auto --below "$EXTERNAL_SCREEN" ;;
+  "both") hdmi both ;;
   *) usage ;;
 esac
