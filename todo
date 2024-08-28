@@ -1,0 +1,34 @@
+#!/bin/bash
+
+TODO_FILE=~/TODO
+
+usage(){
+  printf '%s\n\t%s\n\t%s\n\t%s\n' "Usage: $0 [push <item> | pop | drop]" "push: add a new todo item" "pop: delete a finished todo item" "drop: put the top priority item at the bottom"
+}
+
+[ -z "$1" ] && {
+  more "$TODO_FILE"
+  exit
+}
+
+if [ "$1" = "-h" ] || [ "$1" != "push" ] && [ "$1" != "pop" ] && [ "$1" != "drop" ];then
+  usage
+fi
+
+case "$1" in
+  "push")
+    shift
+    printf -- '- %s\n' "$*" >> "$TODO_FILE"
+    more "$TODO_FILE"
+    ;;
+  "pop")
+    sed -i '5d' "$TODO_FILE"
+    more "$TODO_FILE"
+    ;;
+  "drop")
+    # shellcheck disable=SC2016
+    sed -n -i '5h; $G; p;' "$TODO_FILE"
+    sed -i '5d' "$TODO_FILE"
+    more "$TODO_FILE"
+    ;;
+esac
