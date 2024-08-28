@@ -1,0 +1,45 @@
+#!/bin/sh
+[ -n "$1" ] && Session="--new-window"
+
+Profile_name=$(echo "ProfileX ProfileY ProfileZ" | sed -e 's/ /\n/g' | dmenu -i)
+case "$Profile_name" in
+  "ProfileX")
+    Profile="Default"
+    ;;
+  "ProfileY")
+    Profile="Profile 2"
+    ;;
+  "ProfileZ")
+    Profile="Profile 3"
+    ;;
+esac
+
+Ans="$(sed -n 'n;p;' ~/.bookmarks_"$Profile_name" | dmenu -i)"
+
+if [ "$Ans" = "Private" ]; then
+    Session="--incognito"
+    Ans="$(sed -n 'n;p;' ~/.bookmarks_"$Profile_name" | sed -n '/Private/!p' | sed -n '/AddBookmark/!p' |  dmenu -i)"
+fi
+
+if [ "$Ans" = "AddBookmark" ]; then
+    Name="$(echo "Input name of bookmark" | dmenu)"
+    if [ -n "$Name" ]; then
+        URL="$(echo "Input URL of bookmark" | dmenu)"
+        if [ -n "$URL" ]; then
+            printf '%s\n%s\n' "$Name" "$URL" >> ~/.bookmarks_"$Profile_name"
+        fi
+    fi
+    exit
+elif [ "$Ans" = "Search" ]; then
+    Search="$(echo "Input search phrase" | dmenu | sed 's/ /+/g')"
+    if [ -n "$Search" ]; then
+       exec google-chrome --profile-directory="$Profile" "$Session" "https://www.duckduckgo.com/?q=$Search"
+   fi
+elif [ -n  "$Ans" ]; then
+    URL="$(sed -n "/^$Ans$/ {n;p;}" ~/.bookmarks_"$Profile_name")"
+    if [ -n "$URL" ]; then
+       exec google-chrome --profile-directory="$Profile" "$Session" "$URL"
+   else
+       exec google-chrome --profile-directory="$Profile" "$Session" "$Ans"
+   fi
+fi
