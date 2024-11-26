@@ -1,0 +1,28 @@
+#!/bin/bash
+
+TERM_SLEEP_TIME=0.1
+SLEEP_TIME=0.3
+INITIAL_CHROME_SLEEP_TIME=0.5
+
+if [ "$(i3-msg -t get_outputs | jq '.[].name|length')" -gt 2 ];then
+  INTERNAL_SCREEN="$(i3-msg -t get_outputs | jq '.[0].name')"
+  EXTERNAL_SCREEN="$(i3-msg -t get_outputs | jq '.[2].name')"
+  i3-msg "focus output $INTERNAL_SCREEN; workspace 6; exec slack" && sleep $SLEEP_TIME
+  i3-msg "focus output $INTERNAL_SCREEN; workspace 7; exec Cygni_chrome_session" && sleep $INITIAL_CHROME_SLEEP_TIME
+  i3-msg "focus output $EXTERNAL_SCREEN; workspace 1; exec gnome-terminal" && sleep $TERM_SLEEP_TIME
+  i3-msg "focus output $EXTERNAL_SCREEN; workspace 8; exec Volvo_outlook_pwa" && sleep $SLEEP_TIME
+  i3-msg "focus output $EXTERNAL_SCREEN; workspace 8; exec Zenseact_outlook_pwa" && sleep $SLEEP_TIME
+  i3-msg "focus output $EXTERNAL_SCREEN; workspace 8; exec Zenseact_jira" && sleep $SLEEP_TIME
+  i3-msg "move window up"
+  i3-msg "focus output HDMI-0; workspace 9; exec Volvo_chrome_session" && sleep $SLEEP_TIME
+else
+  i3-msg "workspace 6; exec slack" && sleep $SLEEP_TIME
+  i3-msg "workspace 7; exec Cygni_chrome_session" && sleep $INITIAL_CHROME_SLEEP_TIME
+  i3-msg "workspace 1; exec gnome-terminal" && sleep $TERM_SLEEP_TIME
+  i3-msg "workspace 8; exec Volvo_outlook_pwa" && sleep $SLEEP_TIME
+  i3-msg "workspace 8; exec Zenseact_outlook_pwa" && sleep $SLEEP_TIME
+  i3-msg "workspace 8; exec Zenseact_jira" && sleep $SLEEP_TIME
+  i3-msg "move window up"
+  i3-msg "workspace 9; exec Volvo_chrome_session" && sleep $SLEEP_TIME
+fi
+
