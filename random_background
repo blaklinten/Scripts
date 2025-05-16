@@ -2,8 +2,8 @@
 
 # This script chooses a random background from $PIC_DIR
 
-PIC_DIR=~/Pic/wallpapers/
+# PIC_DIR set form env
 
-PIC=$(find $PIC_DIR -type f | shuf | head -n1)
-
-xwallpaper --zoom "$PIC"
+if [ -n "$PIC_DIR" ];then
+  xwallpaper --zoom "$(find $PIC_DIR -type f | shuf | head -n1)"
+fi

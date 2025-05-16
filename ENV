@@ -13,3 +13,14 @@ DYNDNS_USERNAME=""
 DYNDNS_HOSTNAME=""
 DYNDNS_PASSWORD=""
 DYNDNS_BASEURL=""
+
+# background
+PIC_DIR="$HOME/Pic/wallpapers/"
+
+# TrackMe
+MOZ_USE_XINPUT2="1"
+TRACKME_INTERFACE="dmenu"
+TRACKME_GITSYNC="yes"
+
+# gdb
+DEBUGINFOD_URLS="https://debuginfod.debian.net"
