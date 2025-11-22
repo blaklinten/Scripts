@@ -21,6 +21,8 @@ PIC_DIR="$HOME/Pic/wallpapers/"
 MOZ_USE_XINPUT2="1"
 TRACKME_INTERFACE="dmenu"
 TRACKME_GITSYNC="yes"
+TRACKME_ENC_PASS=""
+TRACKME_ENCRYPTED_CLIENT=""
 
 # gdb
 DEBUGINFOD_URLS="https://debuginfod.debian.net"
